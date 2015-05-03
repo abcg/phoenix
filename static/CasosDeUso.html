@@ -18,8 +18,23 @@
   <p></p>
   <ul>
    <li>URL: '/admin/ARegistrarEvento'</li>
-   <li>Método: GET</li><li>Formato de salida: JSON</li>
+   <li>Método: POST</li><li>Formato de entrada y salida: JSON</li>
 Parámetros GET: nombre, fecha, lugar, numeroCupos, descripcion, afiche
+<li>Parámetros POST:
+    <ul>     <li>nombre_del_Evento - Nombre del evento a registrar. 
+Requerido. 
+     </li>     <li>fecha - Fecha en la cual el evento a registrar se llevara a cabo. 
+Requerido. 
+     </li>     <li>lugar - Lugar en el cual el evento se llevara a cabo. 
+Requerido. 
+     </li>     <li>maximo_Participantes - El numero maximo de participantes que puede asistir al evento a registrar. 
+Requerido. 
+Valor mínimo: <code></code>. 
+     </li>     <li>descripcion - Descripcion del evento que se desea registrar. 
+Requerido. 
+     </li>
+    </ul>
+   </li>
    <li>Roles: Sin restricción de rol
    <li>Requisitos: No disponible
    <li>
@@ -51,8 +66,23 @@ Parámetros GET: nombre, fecha, lugar, numeroCupos, descripcion, afiche
   <p></p>
   <ul>
    <li>URL: '/admin/AModificarEvento'</li>
-   <li>Método: GET</li><li>Formato de salida: JSON</li>
+   <li>Método: POST</li><li>Formato de entrada y salida: JSON</li>
 Parámetros GET: nombre, fecha, lugar, numeroCupos, descripcion, afiche
+<li>Parámetros POST:
+    <ul>     <li>nombre_del_Evento - Nombre del evento registrado a modificar. 
+Requerido. 
+     </li>     <li>fecha - Fecha en la cual el evento registrado a modificar se llevara a cabo. 
+Requerido. 
+     </li>     <li>lugar - Lugar en el cual el evento registrado a modificar se llevara a cabo. 
+Requerido. 
+     </li>     <li>maximo_Participantes - El numero maximo de participantes que puede asistir al evento registrado a modificar. 
+Requerido. 
+Valor mínimo: <code></code>. 
+     </li>     <li>descripcion - Descripcion del evento registrado que se desea modificar. 
+Requerido. 
+     </li>
+    </ul>
+   </li>
    <li>Roles: Sin restricción de rol
    <li>Requisitos: No disponible
    <li>
@@ -352,8 +382,16 @@ Parámetros GET: evento
   <p></p>
   <ul>
    <li>URL: '/login/AIdentificar'</li>
-   <li>Método: GET</li><li>Formato de salida: JSON</li>
+   <li>Método: POST</li><li>Formato de entrada y salida: JSON</li>
 Parámetros GET: login, clave
+<li>Parámetros POST:
+    <ul>     <li>correo - Correo del usuario que desea iniciar sesion. 
+Requerido. 
+     </li>     <li>clave - Clave de la cuenta del usuario que desea iniciar sesion. 
+Requerido. 
+     </li>
+    </ul>
+   </li>
    <li>Roles: Sin restricción de rol
    <li>Requisitos: No disponible
    <li>
@@ -398,6 +436,57 @@ Parámetros GET: login, clave
    <li>URL: '/login/VPortada'</li>
    <li>Método: GET</li><li>Formato de salida: JSON</li>
    <li>Roles: Sin restricción de rol
+  </ul>
+ </li> <li>
+  <p></p>
+  <ul>
+   <li>URL: '/login/VRegistroUsuario'</li>
+   <li>Método: GET</li><li>Formato de salida: JSON</li>
+   <li>Roles: Sin restricción de rol
+  </ul>
+ </li> <li>
+  <p></p>
+  <ul>
+   <li>URL: '/login/ARegistrarUsuario'</li>
+   <li>Método: POST</li><li>Formato de entrada y salida: JSON</li>
+Parámetros GET: login, correo, clave
+<li>Parámetros POST:
+    <ul>     <li>nombre - Nombre del usuario a registrar. 
+Requerido. 
+     </li>     <li>correo - Correo electronico del usuario a registrar. 
+Requerido. 
+     </li>     <li>clave - Clave de la cuenta del usuario a registrar. 
+Requerido. 
+     </li>
+    </ul>
+   </li>
+   <li>Roles: Sin restricción de rol
+   <li>Requisitos: No disponible
+   <li>
+    <p><strong>Cursos posibles</strong></p>
+    <ol>
+     <li>En tanto que visitante ingrese datos validos para el registro y no esten ya registrados, se crea su cuenta dentro del sistema.
+<p>Precondición: !usuarioRegistrado(login,clave).</p>
+<p>Postcondicion: usuarioRegistrado(login,clave).</p>
+      <p>resultado:</p>
+      <ul>
+       <li>label:'/VPortada',</li>
+       <li> msg:"Usuario registrado".</li>
+      </ul>
+<p>Se continúa con el rol de actor_usuario.</p>
+     </li>
+     <li><span style="font-size: 13.3333330154419px;">En tanto que visitante ingrese datos invalidos para el registro o que esten ya registrados, se crea su cuenta dentro del sistema.</span>
+<p>Precondición: !usuarioRegistrado(login,clave).</p>
+<p>Postcondicion: !usuarioRegistrado(login,clave).</p>
+      <p>resultado:</p>
+      <ul>
+       <li>label:'/VRegistroUsuario',</li>
+       <li> msg:"Usuario no registrado".</li>
+      </ul>
+     </li>
+
+    </ol>
+   </li>
   </ul>
  </li>
 </ol>

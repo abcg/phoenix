@@ -13,12 +13,11 @@ eventosModule.service('adminService', ['$q', '$http', function($q, $http) {
     //    return deferred.promise;
     };
 
-    this.ARegistrarEvento = function(args) {
-        if(typeof args == 'undefined') args={};
-        return $http({
-          url: 'admin/ARegistrarEvento',
-          method: 'GET',
-          params: args
+    this.ARegistrarEvento = function(registroEventoForm) {
+        return  $http({
+          url: "admin/ARegistrarEvento",
+          data: registroEventoForm,
+          method: 'POST',
         });
     //    var labels = ["/VEvento", "/VRegistroEvento", ];
     //    var res = labels[0];
@@ -26,12 +25,12 @@ eventosModule.service('adminService', ['$q', '$http', function($q, $http) {
     //    deferred.resolve(res);
     //    return deferred.promise;
     };
-    this.AModificarEvento = function(args) {
-        if(typeof args == 'undefined') args={};
-        return $http({
-          url: 'admin/AModificarEvento',
-          method: 'GET',
-          params: args
+
+    this.AModificarEvento = function(modificacionEventoForm) {
+        return  $http({
+          url: "admin/AModificarEvento",
+          data: modificacionEventoForm,
+          method: 'POST',
         });
     //    var labels = ["/VEvento", "/VModificarEvento", ];
     //    var res = labels[0];
@@ -39,6 +38,7 @@ eventosModule.service('adminService', ['$q', '$http', function($q, $http) {
     //    deferred.resolve(res);
     //    return deferred.promise;
     };
+
     this.VEvento = function(args) {
         if(typeof args == 'undefined') args={};
         return $http({

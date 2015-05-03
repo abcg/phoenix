@@ -105,6 +105,8 @@ eventosModule.controller('VRegistroEventoController',
    ['$scope', '$location', '$route', 'flash', 'adminService', 'loginService',
     function ($scope, $location, $route, flash, adminService, loginService) {
       $scope.msg = '';
+      $scope.registroEventoForm = {};
+
       adminService.VRegistroEvento().then(function (object) {
         $scope.res = object.data;
         for (var key in object.data) {
@@ -117,18 +119,6 @@ eventosModule.controller('VRegistroEventoController',
       $scope.VInicioAdministrador0 = function() {
         $location.path('/VInicioAdministrador');
       };
-      $scope.ARegistrarEvento1 = function(nombre, fecha, lugar, numeroCupos, descripcion, afiche) {
-          
-        adminService.ARegistrarEvento({"nombre, fecha, lugar, numeroCupos, descripcion, afiche":((typeof nombre, fecha, lugar, numeroCupos, descripcion, afiche === 'object')?JSON.stringify(nombre, fecha, lugar, numeroCupos, descripcion, afiche):nombre, fecha, lugar, numeroCupos, descripcion, afiche)}).then(function (object) {
-          var msg = object.data["msg"];
-          if (msg) flash(msg);
-          var label = object.data["label"];
-          if (label == '/VRegistroEvento') {
-              $route.reload();
-          } else {
-              $location.path(label);
-          }
-        });};
       $scope.ADesconectarse2 = function() {
           
         adminService.ADesconectarse().then(function (object) {
@@ -141,6 +131,24 @@ eventosModule.controller('VRegistroEventoController',
               $location.path(label);
           }
         });};
+
+      $scope.registroEventoFormSubmitted = false;
+      $scope.ARegistrarEvento1 = function(isValid) {
+        $scope.registroEventoFormSubmitted = true;
+        if (isValid) {
+          
+          adminService.ARegistrarEvento($scope.registroEventoForm).then(function (object) {
+              var msg = object.data["msg"];
+              if (msg) flash(msg);
+              var label = object.data["label"];
+              if (label == '/VRegistroEvento') {
+                  $route.reload();
+              } else {
+                  $location.path(label);
+              }
+          });
+        }
+      };
 
     }]);
 eventosModule.controller('VAficheController', 
@@ -203,6 +211,8 @@ eventosModule.controller('VModificarEventoController',
    ['$scope', '$location', '$route', 'flash', 'adminService', 'loginService',
     function ($scope, $location, $route, flash, adminService, loginService) {
       $scope.msg = '';
+      $scope.modificacionEventoForm = {};
+
       adminService.VModificarEvento().then(function (object) {
         $scope.res = object.data;
         for (var key in object.data) {
@@ -212,18 +222,6 @@ eventosModule.controller('VModificarEventoController',
             $location.path('/');
         }
       });
-      $scope.AModificarEvento0 = function(nombre, fecha, lugar, numeroCupos, descripcion, afiche) {
-          
-        adminService.AModificarEvento({"nombre, fecha, lugar, numeroCupos, descripcion, afiche":((typeof nombre, fecha, lugar, numeroCupos, descripcion, afiche === 'object')?JSON.stringify(nombre, fecha, lugar, numeroCupos, descripcion, afiche):nombre, fecha, lugar, numeroCupos, descripcion, afiche)}).then(function (object) {
-          var msg = object.data["msg"];
-          if (msg) flash(msg);
-          var label = object.data["label"];
-          if (label == '/VModificarEvento') {
-              $route.reload();
-          } else {
-              $location.path(label);
-          }
-        });};
       $scope.VEvento1 = function() {
         $location.path('/VEvento');
       };
@@ -239,5 +237,23 @@ eventosModule.controller('VModificarEventoController',
               $location.path(label);
           }
         });};
+
+      $scope.modificacionEventoFormSubmitted = false;
+      $scope.AModificarEvento0 = function(isValid) {
+        $scope.modificacionEventoFormSubmitted = true;
+        if (isValid) {
+          
+          adminService.AModificarEvento($scope.modificacionEventoForm).then(function (object) {
+              var msg = object.data["msg"];
+              if (msg) flash(msg);
+              var label = object.data["label"];
+              if (label == '/VModificarEvento') {
+                  $route.reload();
+              } else {
+                  $location.path(label);
+              }
+          });
+        }
+      };
 
     }]);

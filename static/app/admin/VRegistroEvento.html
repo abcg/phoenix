@@ -26,10 +26,17 @@
             </tr>
         </table>
 
-<hr />            </tr>
-        </table>
-
-<hr />
+<hr />    <form name="registroEventoFormForm" ng-submit="ARegistrarEvento1(registroEventoFormForm.$valid)" novalidate>
+            <div class="form-group" ng-class="{ 'has-error' :  registroEventoFormSubmitted && registroEventoFormForm.nombre_del_Evento.$invalid && registroEventoFormForm.nombre_del_Evento.$pristine && registroEventoFormSubmitted}"><label for="registroEventoForm_nombre_del_Evento">nombreEvento</label><input id="registroEventoForm_nombre_del_Evento" type="text" name="nombre_del_Evento" class="form-control" ng-model="registroEventoForm.nombre_del_Evento" placeholder="nombreEvento" required/><p ng-show="registroEventoFormSubmitted && registroEventoFormForm.nombre_del_Evento.$invalid" class="help-block">Error en campo nombreEvento.</p></div>
+            <div class="form-group" ng-class="{ 'has-error' :  registroEventoFormSubmitted && registroEventoFormForm.fecha.$invalid && registroEventoFormForm.fecha.$pristine && registroEventoFormSubmitted}"><label for="registroEventoForm_fecha">fecha</label><input id="registroEventoForm_fecha" type="date" name="fecha" class="form-control" ng-model="registroEventoForm.fecha" placeholder="fecha" required/><p ng-show="registroEventoFormSubmitted && registroEventoFormForm.fecha.$invalid" class="help-block">Error en campo fecha.</p></div>
+            <div class="form-group" ng-class="{ 'has-error' :  registroEventoFormSubmitted && registroEventoFormForm.lugar.$invalid && registroEventoFormForm.lugar.$pristine && registroEventoFormSubmitted}"><label for="registroEventoForm_lugar">lugar</label><input id="registroEventoForm_lugar" type="text" name="lugar" class="form-control" ng-model="registroEventoForm.lugar" placeholder="lugar" required/><p ng-show="registroEventoFormSubmitted && registroEventoFormForm.lugar.$invalid" class="help-block">Error en campo lugar.</p></div>
+            <div class="form-group" ng-class="{ 'has-error' :  registroEventoFormSubmitted && registroEventoFormForm.maximo_Participantes.$invalid && registroEventoFormForm.maximo_Participantes.$pristine && registroEventoFormSubmitted}"><label for="registroEventoForm_maximo_Participantes">maxparticipantes</label><input id="registroEventoForm_maximo_Participantes" type="number" name="maximo_Participantes" class="form-control" ng-model="registroEventoForm.maximo_Participantes" placeholder="maxparticipantes" required min=""/><p ng-show="registroEventoFormSubmitted && registroEventoFormForm.maximo_Participantes.$invalid" class="help-block">Error en campo maxparticipantes.</p></div>
+            <div class="form-group" ng-class="{ 'has-error' :  registroEventoFormSubmitted && registroEventoFormForm.descripcion.$invalid && registroEventoFormForm.descripcion.$pristine && registroEventoFormSubmitted}"><label for="registroEventoForm_descripcion">descripcion</label><textarea id="registroEventoForm_descripcion" name="descripcion" class="form-control" ng-model="registroEventoForm.descripcion" placeholder="descripcion" required></textarea><p ng-show="registroEventoFormSubmitted && registroEventoFormForm.descripcion.$invalid" class="help-block">Error en campo descripcion.</p></div>
+        <button type="submit" class="btn btn-perso btn-lg btn-block">
+            <span class="glyphicon glyphicon-flash"></span>Registrar
+        </button>
+    </form>
+    <hr />
 
 
 <div id="right"></div>

@@ -23,10 +23,17 @@
     </div>
 </nav>
 
-            </tr>
-        </table>
-
-<hr />            </tr>
+    <form name="modificacionEventoFormForm" ng-submit="AModificarEvento0(modificacionEventoFormForm.$valid)" novalidate>
+            <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted && modificacionEventoFormForm.nombre_del_Evento.$invalid && modificacionEventoFormForm.nombre_del_Evento.$pristine && modificacionEventoFormSubmitted}"><label for="modificacionEventoForm_nombre_del_Evento">nombreEvento</label><input id="modificacionEventoForm_nombre_del_Evento" type="text" name="nombre_del_Evento" class="form-control" ng-model="modificacionEventoForm.nombre_del_Evento" placeholder="nombreEvento" required/><p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.nombre_del_Evento.$invalid" class="help-block">Error en campo nombreEvento.</p></div>
+            <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted && modificacionEventoFormForm.fecha.$invalid && modificacionEventoFormForm.fecha.$pristine && modificacionEventoFormSubmitted}"><label for="modificacionEventoForm_fecha">fecha</label><input id="modificacionEventoForm_fecha" type="date" name="fecha" class="form-control" ng-model="modificacionEventoForm.fecha" placeholder="fecha" required/><p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.fecha.$invalid" class="help-block">Error en campo fecha.</p></div>
+            <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted && modificacionEventoFormForm.lugar.$invalid && modificacionEventoFormForm.lugar.$pristine && modificacionEventoFormSubmitted}"><label for="modificacionEventoForm_lugar">lugar</label><input id="modificacionEventoForm_lugar" type="text" name="lugar" class="form-control" ng-model="modificacionEventoForm.lugar" placeholder="lugar" required/><p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.lugar.$invalid" class="help-block">Error en campo lugar.</p></div>
+            <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted && modificacionEventoFormForm.maximo_Participantes.$invalid && modificacionEventoFormForm.maximo_Participantes.$pristine && modificacionEventoFormSubmitted}"><label for="modificacionEventoForm_maximo_Participantes">maxparticipantes</label><input id="modificacionEventoForm_maximo_Participantes" type="number" name="maximo_Participantes" class="form-control" ng-model="modificacionEventoForm.maximo_Participantes" placeholder="maxparticipantes" required min=""/><p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.maximo_Participantes.$invalid" class="help-block">Error en campo maxparticipantes.</p></div>
+            <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted && modificacionEventoFormForm.descripcion.$invalid && modificacionEventoFormForm.descripcion.$pristine && modificacionEventoFormSubmitted}"><label for="modificacionEventoForm_descripcion">descripcion</label><textarea id="modificacionEventoForm_descripcion" name="descripcion" class="form-control" ng-model="modificacionEventoForm.descripcion" placeholder="descripcion" required></textarea><p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.descripcion.$invalid" class="help-block">Error en campo descripcion.</p></div>
+        <button type="submit" class="btn btn-perso btn-lg btn-block">
+            <span class="glyphicon glyphicon-flash"></span>Modificar Evento
+        </button>
+    </form>
+    <hr />            </tr>
         </table>
 
 <hr />

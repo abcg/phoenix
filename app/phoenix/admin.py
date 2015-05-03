@@ -61,7 +61,7 @@ def AGuardarAsistencia():
 
 
 
-@admin.route('/admin/AModificarEvento')
+@admin.route('/admin/AModificarEvento', methods=['POST'])
 def AModificarEvento():
     #GET parameter
     nombre, fecha, lugar, numeroCupos, descripcion, afiche = request.args['nombre, fecha, lugar, numeroCupos, descripcion, afiche']
@@ -80,7 +80,7 @@ def AModificarEvento():
 
 
 
-@admin.route('/admin/ARegistrarEvento')
+@admin.route('/admin/ARegistrarEvento', methods=['POST'])
 def ARegistrarEvento():
     #GET parameter
     nombre, fecha, lugar, numeroCupos, descripcion, afiche = request.args['nombre, fecha, lugar, numeroCupos, descripcion, afiche']

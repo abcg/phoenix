@@ -20,7 +20,14 @@
     </div>
 </nav>
 
-            </tr>
+    <form name="loginFormForm" ng-submit="AIdentificar0(loginFormForm.$valid)" novalidate>
+            <div class="form-group" ng-class="{ 'has-error' :  loginFormSubmitted && loginFormForm.correo.$invalid && loginFormForm.correo.$pristine && loginFormSubmitted}"><label for="loginForm_correo">correo</label><input id="loginForm_correo" type="email" name="correo" class="form-control" ng-model="loginForm.correo" placeholder="correo" required/><p ng-show="loginFormSubmitted && loginFormForm.correo.$invalid" class="help-block">Error en campo correo.</p></div>
+            <div class="form-group" ng-class="{ 'has-error' :  loginFormSubmitted && loginFormForm.clave.$invalid && loginFormForm.clave.$pristine && loginFormSubmitted}"><label for="loginForm_clave">clave</label><input id="loginForm_clave" type="password" name="clave" class="form-control" ng-model="loginForm.clave" placeholder="clave" required/><p ng-show="loginFormSubmitted && loginFormForm.clave.$invalid" class="help-block">Error en campo clave.</p></div>
+        <button type="submit" class="btn btn-perso btn-lg btn-block">
+            <span class="glyphicon glyphicon-flash"></span>Identificar usuario
+        </button>
+    </form>
+    <hr />            </tr>
         </table>
 
 <hr />

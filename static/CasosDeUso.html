@@ -19,15 +19,15 @@
   <ul>
    <li>URL: '/admin/ARegistrarEvento'</li>
    <li>Método: POST</li><li>Formato de entrada y salida: JSON</li>
-Parámetros GET: nombre, fecha, lugar, numeroCupos, descripcion, afiche
+Parámetros GET: nombreEvento, fecha, lugar, maxparticipantes, descripcion
 <li>Parámetros POST:
-    <ul>     <li>nombre_del_Evento - Nombre del evento a registrar. 
+    <ul>     <li>nombreEvento - Nombre del evento a registrar. 
 Requerido. 
      </li>     <li>fecha - Fecha en la cual el evento a registrar se llevara a cabo. 
 Requerido. 
      </li>     <li>lugar - Lugar en el cual el evento se llevara a cabo. 
 Requerido. 
-     </li>     <li>maximo_Participantes - El numero maximo de participantes que puede asistir al evento a registrar. 
+     </li>     <li>maxparticipantes - El numero maximo de participantes que puede asistir al evento a registrar. 
 Requerido. 
 Valor mínimo: <code></code>. 
      </li>     <li>descripcion - Descripcion del evento que se desea registrar. 
@@ -67,15 +67,15 @@ Requerido.
   <ul>
    <li>URL: '/admin/AModificarEvento'</li>
    <li>Método: POST</li><li>Formato de entrada y salida: JSON</li>
-Parámetros GET: nombre, fecha, lugar, numeroCupos, descripcion, afiche
+Parámetros GET: nombreEvento, fecha, lugar, maxparticipantes, descripcion
 <li>Parámetros POST:
-    <ul>     <li>nombre_del_Evento - Nombre del evento registrado a modificar. 
+    <ul>     <li>nombreEvento - Nombre del evento registrado a modificar. 
 Requerido. 
      </li>     <li>fecha - Fecha en la cual el evento registrado a modificar se llevara a cabo. 
 Requerido. 
      </li>     <li>lugar - Lugar en el cual el evento registrado a modificar se llevara a cabo. 
 Requerido. 
-     </li>     <li>maximo_Participantes - El numero maximo de participantes que puede asistir al evento registrado a modificar. 
+     </li>     <li>maxparticipantes - El numero maximo de participantes que puede asistir al evento registrado a modificar. 
 Requerido. 
 Valor mínimo: <code></code>. 
      </li>     <li>descripcion - Descripcion del evento registrado que se desea modificar. 
@@ -162,8 +162,8 @@ Parámetros GET: participantes
     <p><strong>Cursos posibles</strong></p>
     <ol>
      <li><span style="font-size: 13.3333330154419px;">En tanto que se haya llevado a cabo un evento y el administrador de éste suministre la asistencia de los participantes, dicha información quedará registrada.</span>
-<p>Precondición: (forall login : asistencia(login,evento) == null).</p>
-<p>Postcondicion: (forall login : asistencia(login,evento)).</p>
+<p>Precondición: (forall correo : asistencia(correo,evento) == null).</p>
+<p>Postcondicion: (forall correo : asistencia(correo,evento)).</p>
       <p>resultado:</p>
       <ul>
        <li>label:'/VParticipantes',</li>
@@ -171,8 +171,8 @@ Parámetros GET: participantes
       </ul>
      </li>
      <li><span style="font-size: 13.3333330154419px;">En tanto que se haya llevado a cabo un evento y el administrador de éste suministre la información incompleta de la asistencia de los participantes, dicha información no podrá quedar registrada.</span>
-<p>Precondición: (forall login : asistencia(login,evento) == null).</p>
-<p>Postcondicion: (forall login : asistencia(login,evento) == null).</p>
+<p>Precondición: (forall correo : asistencia(correo,evento) == null).</p>
+<p>Postcondicion: (forall correo : asistencia(correo,evento) == null).</p>
       <p>resultado:</p>
       <ul>
        <li>label:'/VParticipantes',</li>
@@ -194,8 +194,8 @@ Parámetros GET: participantes
     <p><strong>Cursos posibles</strong></p>
     <ol>
      <li><span style="font-size: 13.3333330154419px;">En tanto que administrador esté identificado actualmente en la aplicación, se cierra su sesión.</span>
-<p>Precondición: unionReconoce(login).</p>
-<p>Postcondicion: !unionReconoce(login).</p>
+<p>Precondición: unionReconoce(correo).</p>
+<p>Postcondicion: !unionReconoce(correo).</p>
       <p>resultado:</p>
       <ul>
        <li>label:'/VPortada',</li>
@@ -252,8 +252,8 @@ Parámetros GET: evento
     <p><strong>Cursos posibles</strong></p>
     <ol>
      <li>En tanto que usuario no haya reservado cupo en el evento y haya disponibilidad, se reserva su cupo y se actualiza la disponibilidad de dicho evento.
-<p>Precondición: !reservado(login,evento) && (disponibilidad(evento)==n && disponibilidad(evento)>0).</p>
-<p>Postcondicion: reservado(login,evento) && (disponibilidad(evento)==n-1).</p>
+<p>Precondición: !reservado(usuario,evento) && (disponibilidad(evento)==n && disponibilidad(evento)>0).</p>
+<p>Postcondicion: reservado(usuario,evento) && (disponibilidad(evento)==n-1).</p>
       <p>resultado:</p>
       <ul>
        <li>label:'/VInicioUsuario',</li>
@@ -322,8 +322,8 @@ Parámetros GET: evento
     <p><strong>Cursos posibles</strong></p>
     <ol>
      <li><span style="font-size: 13.3333330154419px;">En tanto que usuario esté identificado actualmente en la aplicación, se cierra su sesión.</span>
-<p>Precondición: unionReconoce(login).</p>
-<p>Postcondicion: !unionReconoce(login).</p>
+<p>Precondición: unionReconoce(correo).</p>
+<p>Postcondicion: !unionReconoce(correo).</p>
       <p>resultado:</p>
       <ul>
        <li>label:'/VPortada',</li>
@@ -347,8 +347,8 @@ Parámetros GET: evento
     <p><strong>Cursos posibles</strong></p>
     <ol>
      <li><span style="font-size: 13.3333330154419px;">En tanto que usuario no haya reservado cupo en el evento y haya asistido, se genera una certificación para dicho usuario de su participación en tal evento.</span>
-<p>Precondición: reservado(login,evento) && asistencia(login,evento).</p>
-<p>Postcondicion: certificacion(login,evento).</p>
+<p>Precondición: reservado(correo,evento) && asistencia(correo,evento).</p>
+<p>Postcondicion: certificacion(correo,evento).</p>
       <p>resultado:</p>
       <ul>
        <li>label:'/VEventoUsuario',</li>
@@ -383,7 +383,7 @@ Parámetros GET: evento
   <ul>
    <li>URL: '/login/AIdentificar'</li>
    <li>Método: POST</li><li>Formato de entrada y salida: JSON</li>
-Parámetros GET: login, clave
+Parámetros GET: correo, clave
 <li>Parámetros POST:
     <ul>     <li>correo - Correo del usuario que desea iniciar sesion. 
 Requerido. 
@@ -398,8 +398,8 @@ Requerido.
     <p><strong>Cursos posibles</strong></p>
     <ol>
      <li>En tanto que visitante pueda presentar credenciales, sean validadas y correspondan a un administrador, se le garantiza el acceso con ese mismo rol.
-<p>Precondición: usuarioValido(login,clave) && esAdministrador(login).</p>
-<p>Postcondicion: unionReconoce(login).</p>
+<p>Precondición: usuarioValido(correo,clave) && esAdministrador(correo).</p>
+<p>Postcondicion: unionReconoce(correo).</p>
       <p>resultado:</p>
       <ul>
        <li>label:'/VInicioAdministrador',</li>
@@ -408,8 +408,8 @@ Requerido.
 <p>Se continúa con el rol de actor_administrador.</p>
      </li>
      <li><span style="font-size: 13.3333330154419px;">En tanto que visitante pueda presentar credenciales, sean validadas y correspondan a un usuario, se le garantiza el acceso con ese mismo rol.</span>
-<p>Precondición: usuarioValido(login,clave) && esUsuario(login).</p>
-<p>Postcondicion: unionReconoce(login).</p>
+<p>Precondición: usuarioValido(correo,clave) && esUsuario(correo).</p>
+<p>Postcondicion: unionReconoce(correo).</p>
       <p>resultado:</p>
       <ul>
        <li>label:'/VInicioUsuario',</li>
@@ -418,8 +418,8 @@ Requerido.
 <p>Se continúa con el rol de actor_usuario.</p>
      </li>
      <li><span style="font-size: 13.3333330154419px;">En tanto que visitante haya presentado credenciales que no sean válidas, no se le garantiza el acceso a la aplicación y se mantiene en la misma vista de presentación de credenciales.</span>
-<p>Precondición: !usuarioValido(login,clave).</p>
-<p>Postcondicion: !unionReconoce(login).</p>
+<p>Precondición: !usuarioValido(correo,clave).</p>
+<p>Postcondicion: !unionReconoce(correo).</p>
       <p>resultado:</p>
       <ul>
        <li>label:'/VPortada',</li>
@@ -449,7 +449,7 @@ Requerido.
   <ul>
    <li>URL: '/login/ARegistrarUsuario'</li>
    <li>Método: POST</li><li>Formato de entrada y salida: JSON</li>
-Parámetros GET: login, correo, clave
+Parámetros GET: nombre, correo, clave
 <li>Parámetros POST:
     <ul>     <li>nombre - Nombre del usuario a registrar. 
 Requerido. 

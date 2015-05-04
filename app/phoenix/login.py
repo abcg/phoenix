@@ -7,7 +7,7 @@ login = Blueprint('login', __name__)
 @login.route('/login/AIdentificar', methods=['POST'])
 def AIdentificar():
     #GET parameter
-    login, clave = request.args['login, clave']
+    correo, clave = request.args['correo, clave']
     results = [{'label':'/VInicioAdministrador', 'msg':[ur'Administrador identificado'], "actor":"actor_administrador"}, {'label':'/VInicioUsuario', 'msg':[ur'Usuario identificado'], "actor":"actor_usuario"}, {'label':'/VPortada', 'msg':[ur'Error en identificacion']}, ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
@@ -26,7 +26,7 @@ def AIdentificar():
 @login.route('/login/ARegistrarUsuario', methods=['POST'])
 def ARegistrarUsuario():
     #GET parameter
-    login, correo, clave = request.args['login, correo, clave']
+    nombre, correo, clave = request.args['nombre, correo, clave']
     results = [{'label':'/VPortada', 'msg':[ur'Usuario registrado'], "actor":"actor_usuario"}, {'label':'/VRegistroUsuario', 'msg':[ur'Usuario no registrado']}, ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message

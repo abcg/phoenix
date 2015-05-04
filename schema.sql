@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS actor;
 CREATE TABLE actor (
   correo text not null primary key,
+  nombre text not null,
   clave  text not null,
   es_administrador integer not null
 );
@@ -16,7 +17,7 @@ CREATE TABLE evento (
   total_cupos       integer not null,
   cupos_disponibles integer not null,
   administrador     integer not null,
-  FOREIGN KEY(administrador) REFERENCES actor(login)
+  FOREIGN KEY(administrador) REFERENCES actor(nombre)
 );
 
 DROP TABLE IF EXISTS certificado;
@@ -25,18 +26,18 @@ CREATE TABLE certificado (
   fecha_de_generacion text not null,
 
   -- reserva asociada
-  actor_login text not null,
+  actor_nombre text not null,
   evento_id  text not null,
-  FOREIGN KEY(actor_login, evento_id) REFERENCES reserva(actor_login, evento_id)
+  FOREIGN KEY(actor_nombre, evento_id) REFERENCES reserva(actor_nombre, evento_id)
 );
 
 DROP TABLE IF EXISTS reserva;
 CREATE TABLE reserva (
-  actor_login text not null,
+  actor_nombre text not null,
   evento_id  text not null,
   asistencia integer,
-  PRIMARY KEY (actor_login, evento_id),
-  FOREIGN KEY(actor_login) REFERENCES actor(login),
+  PRIMARY KEY (actor_nombre, evento_id),
+  FOREIGN KEY(actor_nombre) REFERENCES actor(nombre),
   FOREIGN KEY(evento_id)     REFERENCES evento(id)
 );
 

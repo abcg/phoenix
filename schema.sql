@@ -1,8 +1,7 @@
 DROP TABLE IF EXISTS actor;
 CREATE TABLE actor (
-  login  text not null primary key,
+  correo text not null primary key,
   clave  text not null,
-  correo text not null,
   es_administrador integer not null
 );
 

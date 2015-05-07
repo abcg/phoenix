@@ -31,22 +31,7 @@ app.register_blueprint(login)
 
 
 #Application code starts here
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine
 
-Base = automap_base()
-
-engine =  create_engine('sqlite:///phoenix.db')
-
-Base.prepare(engine, reflect=True)
-
-Actor = Base.classes.actor
-Evento = Base.classes.evento
-Certificado = Base.classes.certificado
-Reserva = Base.classes.reserva
-
-session = Session(engine)
 
 #Application code ends here
 
@@ -55,4 +40,3 @@ if __name__ == '__main__':
       SECRET_KEY = repr(SystemRandom().random())
     )
     manager.run()
-

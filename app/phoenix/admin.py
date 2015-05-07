@@ -64,7 +64,7 @@ def AGuardarAsistencia():
 @admin.route('/admin/AModificarEvento', methods=['POST'])
 def AModificarEvento():
     #GET parameter
-    nombreEvento, fecha, lugar, maxparticipantes, descripcion = request.args['nombreEvento, fecha, lugar, maxparticipantes, descripcion']
+    formulario = request.args['formulario']
     results = [{'label':'/VEvento', 'msg':[ur'Evento modificado']}, {'label':'/VModificarEvento', 'msg':[ur'Evento no modificado']}, ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
@@ -83,7 +83,7 @@ def AModificarEvento():
 @admin.route('/admin/ARegistrarEvento', methods=['POST'])
 def ARegistrarEvento():
     #GET parameter
-    nombreEvento, fecha, lugar, maxparticipantes, descripcion = request.args['nombreEvento, fecha, lugar, maxparticipantes, descripcion']
+    formulario = request.args['formulario']
     results = [{'label':'/VEvento', 'msg':[ur'Evento registrado']}, {'label':'/VRegistroEvento', 'msg':[ur'Evento no registrado']}, ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message

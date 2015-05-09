@@ -13,7 +13,7 @@ def AIdentificar():
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
 
-    correo = formulario['correo']
+    correo = formulario['correo'].lower()
     clave  = formulario['clave']
     actor  = dbsession.query(Actor).get(correo)
 
@@ -46,7 +46,7 @@ def ARegistrarUsuario():
     if dbsession.query(Actor).get(formulario['correo']) is not None:
         res = results[1]
     else:
-        dbsession.add(Actor(correo=formulario['correo'], clave=formulario['clave'], nombre=formulario['nombre'], es_administrador=0))
+        dbsession.add(Actor(correo=formulario['correo'].lower(), clave=formulario['clave'], nombre=formulario['nombre'], es_administrador=0))
         dbsession.commit()
 
     #Action code ends here

@@ -14,14 +14,26 @@
             <ul class="nav navbar-nav navbar-left">
 <li><a ng-click="ADesconectarse4()">
   Desconectarse</a></li>
+  <li><a ng-click="VInicioAdministrador1()">
+  Regresar</a></li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
 <li class="navbar-text" ng-show="usuario.nombre" ng-bind="usuario.nombre"></li>
             </ul>
         </div>
+       
     </div>
 </nav>
+
+	<h1>{{nombreEvento}}</h1>
+	<p>{{nombreAdmin}}</p>
+	
+	<p>Lugar: {{lugar}}</p>
+	<p>Descripción: {{descripcion}}</p>
+	
+	</br><p>Máx. Participantes: {{nroCupos}}</p>
+	<p>Cupos disponibles: {{cuposDisponibles}}</p>
 
             </tr>
         </table>

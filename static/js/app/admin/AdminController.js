@@ -36,7 +36,7 @@ eventosModule.controller('VInicioAdministradorController',
       $scope.VRegistroEvento0 = function() {
         $location.path('/VRegistroEvento');
       };
-      $scope.VEvento1 = function() {
+      $scope.VEvento1 = function(eventoid) {
         $location.path('/VEvento');
       };
       $scope.ADesconectarse2 = function() {
@@ -74,6 +74,9 @@ eventosModule.controller('VEventoController',
       };
       $scope.VParticipantes2 = function() {
         $location.path('/VParticipantes');
+      };
+      $scope.VInicioAdministrador1 = function() {
+        $location.path('/VInicioAdministrador');
       };
       $scope.AEliminarEvento3 = function(evento) {
           

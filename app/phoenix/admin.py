@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import request, session, Blueprint, json
-
+from models import *
 admin = Blueprint('admin', __name__)
 
 
@@ -83,12 +83,22 @@ def AModificarEvento():
 @admin.route('/admin/ARegistrarEvento', methods=['POST'])
 def ARegistrarEvento():
     #GET parameter
-    formulario = request.args['formulario']
+    formulario = request.get_json()
     results = [{'label':'/VEvento', 'msg':[ur'Evento registrado']}, {'label':'/VRegistroEvento', 'msg':[ur'Evento no registrado']}, ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
+    n = formulario['nombreEvento']
+    d = formulario['descripcion']
+    f = formulario['fecha']
+    l = formulario['lugar']
+    c = formulario['maxparticipantes']
+	
+    evento = Evento(afiche= '', nombre=n, descripcion=d, fecha=f, lugar=l, total_cupos=c, cupos_disponibles=c, administrador='admin@admin.com')
 
-
+    dbsession.add(evento)
+    dbsession.commit()
+    
+	
     #Action code ends here
     if "actor" in res:
         if res['actor'] is None:
@@ -113,12 +123,22 @@ def VAfiche():
 
 
 @admin.route('/admin/VEvento')
-def VEvento():
+def VEvento(methods = ['GET']):
     res = {}
     if "actor" in session:
         res['actor']=session['actor']
+    eventoid=request.args['id']
     #Action code goes here, res should be a JSON structure
-
+    e = dbsession.query(Evento).get(1)
+    a = dbsession.query(Actor).get(e.administrador)
+    
+    res['nombreEvento'] = e.nombre
+    res['descripcion'] = e.descripcion
+    res['lugar'] = e.lugar
+    res['nroCupos'] = e.total_cupos
+    res['cuposDisponibles'] = e.cupos_disponibles
+    res['nombreAdmin'] = a.nombre
+    
 
     #Action code ends here
     return json.dumps(res)

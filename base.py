@@ -37,6 +37,7 @@ app.register_blueprint(login)
 
 if __name__ == '__main__':
     app.config.update(
-      SECRET_KEY = repr(SystemRandom().random())
+    #  SECRET_KEY = repr(SystemRandom().random())
+    SECRET_KEY = 'OGOBAgfniwae'
     )
     manager.run()

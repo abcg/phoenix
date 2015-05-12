@@ -26,15 +26,27 @@
     </div>
 </nav>
 
-	<h1>{{nombreEvento}}</h1>
-	<p>{{nombreAdmin}}</p>
+	<h1>{{res.nombreEvento}}</h1>
+	<p>{{res.nombreAdmin}}</p>
 	
-	<p>Lugar: {{lugar}}</p>
-	<p>Descripción: {{descripcion}}</p>
+	<p>Lugar: {{res.lugar}}</p>
+	<p>Descripción: {{res.descripcion}}</p>
 	
-	</br><p>Máx. Participantes: {{nroCupos}}</p>
-	<p>Cupos disponibles: {{cuposDisponibles}}</p>
-
+	</br><p>Máx. Participantes: {{res.nroCupos}}</p>
+	<p>Cupos disponibles: {{res.cuposDisponibles}}</p>
+	
+	<a ng-click="VParticipantes2()">Ver Participantes</a>
+	</br><a ng-click="VModificarEvento1()">Modificar Evento</a>
+	</br><a ng-click="borrarEvento()">Eliminar Evento</a>
+	
+	
+	<script>
+		function borrarEvento(id) {
+			if (confirm("̣Está seguro de que desea eliminar este evento?") == true) {
+				AEliminarEvento(id);
+			}
+		}
+	</script>
             </tr>
         </table>
 

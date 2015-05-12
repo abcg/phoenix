@@ -36,8 +36,8 @@ eventosModule.controller('VInicioAdministradorController',
       $scope.VRegistroEvento0 = function() {
         $location.path('/VRegistroEvento');
       };
-      $scope.VEvento1 = function(eventoid) {
-        $location.path('/VEvento');
+      $scope.VEvento1 = function(id) {
+        $location.path('/VEvento').search( { eventoid : id } );
       };
       $scope.ADesconectarse2 = function() {
           

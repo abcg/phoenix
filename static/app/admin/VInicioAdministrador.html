@@ -25,6 +25,19 @@
     </div>
 </nav>
 
+<ul>
+	<div ng-repeat="evento in res.eventos">
+		<div ng-click="VEvento1(2)">
+			<li>
+				{{evento.nombre}}
+				{{evento.fecha}}
+				{{evento.cupos_disponibles}}
+			</li>
+		</div>
+	</div>
+</ul>
+
+
             </tr>
         </table>
 

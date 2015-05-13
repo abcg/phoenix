@@ -126,17 +126,13 @@ def VAfiche():
 def VEvento():
     res = {}
     
-    evento_id = request.args.get('eventoid')
-    
-    print evento_id
-    
     if "actor" in session:
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
     
     
     
-    e = dbsession.query(Evento).get(evento_id)
+    e = dbsession.query(Evento).get(2)
     a = dbsession.query(Actor).get(e.administrador)
     
     res['nombreEvento'] = e.nombre

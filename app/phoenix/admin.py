@@ -93,7 +93,7 @@ def ARegistrarEvento():
     l = formulario['lugar']
     c = formulario['maxparticipantes']
 	
-    evento = Evento(afiche= '', nombre=n, descripcion=d, fecha=f, lugar=l, total_cupos=c, cupos_disponibles=c, administrador='admin@admin.com')
+    evento = Evento(afiche= '', nombre=n, descripcion=d, fecha=f, lugar=l, total_cupos=c, cupos_disponibles=c, administrador=session['correo'])
 
     dbsession.add(evento)
     dbsession.commit()
@@ -123,7 +123,7 @@ def VAfiche():
 
 
 @admin.route('/admin/VEvento')
-def VEvento(methods = [ 'GET' ]):
+def VEvento():
     res = {}
     
     evento_id = request.args.get('eventoid')

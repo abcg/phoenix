@@ -64,10 +64,11 @@ def AGuardarAsistencia():
 @admin.route('/admin/AModificarEvento', methods=['POST'])
 def AModificarEvento():
     #GET parameter
-    formulario = request.args['formulario']
+    formulario = request.get_json()
     results = [{'label':'/VEvento', 'msg':[ur'Evento modificado']}, {'label':'/VModificarEvento', 'msg':[ur'Evento no modificado']}, ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
+    
 
 
     #Action code ends here
@@ -97,6 +98,8 @@ def ARegistrarEvento():
 
     dbsession.add(evento)
     dbsession.commit()
+    
+    res['label'] += '/' + str(evento.id)
     
 	
     #Action code ends here
@@ -163,8 +166,8 @@ def VInicioAdministrador():
 
 
 
-@admin.route('/admin/VModificarEvento')
-def VModificarEvento():
+@admin.route('/admin/VModificarEvento/:idEvento')
+def VModificarEvento(idEvento):
     res = {}
     if "actor" in session:
         res['actor']=session['actor']

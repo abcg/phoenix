@@ -42,7 +42,7 @@ eventosModule.service('adminService', ['$q', '$http', function($q, $http) {
     this.VEvento = function(args) {
         if(typeof args == 'undefined') args={};
         return $http({
-          url: 'admin/VEvento',
+          url: 'admin/VEvento/'+args,
           method: 'GET',
           params: args
         });
@@ -133,7 +133,7 @@ eventosModule.service('adminService', ['$q', '$http', function($q, $http) {
     this.VModificarEvento = function(args) {
         if(typeof args == 'undefined') args={};
         return $http({
-          url: 'admin/VModificarEvento',
+          url: 'admin/VModificarEvento/'+args,
           method: 'GET',
           params: args
         });

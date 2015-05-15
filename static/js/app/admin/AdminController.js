@@ -14,7 +14,7 @@ eventosModule.config(function ($routeProvider) {
             }).when('/VParticipantes', {
                 controller: 'VParticipantesController',
                 templateUrl: 'app/admin/VParticipantes.html'
-            }).when('/VModificarEvento', {
+            }).when('/VModificarEvento/:idEvento', {
                 controller: 'VModificarEventoController',
                 templateUrl: 'app/admin/VModificarEvento.html'
             });
@@ -211,12 +211,12 @@ eventosModule.controller('VParticipantesController',
 
     }]);
 eventosModule.controller('VModificarEventoController', 
-   ['$scope', '$location', '$route', 'flash', 'adminService', 'loginService',
-    function ($scope, $location, $route, flash, adminService, loginService) {
+   ['$scope', '$location', '$route', '$routeParams', 'flash', 'adminService', 'loginService',
+    function ($scope, $location, $route, $routeParams, flash, adminService, loginService) {
       $scope.msg = '';
       $scope.modificacionEventoForm = {};
 
-      adminService.VModificarEvento().then(function (object) {
+      adminService.VModificarEvento($routeParams.idEvento).then(function (object) {
         $scope.res = object.data;
         for (var key in object.data) {
             $scope[key] = object.data[key];
@@ -226,7 +226,7 @@ eventosModule.controller('VModificarEventoController',
         }
       });
       $scope.VEvento1 = function() {
-        $location.path('/VEvento');
+        $location.path('/VEvento/'+$routeParams.idEvento);
       };
       $scope.ADesconectarse2 = function() {
           

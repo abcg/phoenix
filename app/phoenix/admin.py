@@ -122,17 +122,16 @@ def VAfiche():
 
 
 
-@admin.route('/admin/VEvento')
-def VEvento():
+@admin.route('/admin/VEvento/<idEvento>')
+def VEvento(idEvento):
     res = {}
-    
+
     if "actor" in session:
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
-    
-    
-    
-    e = dbsession.query(Evento).get(2)
+
+
+    e = dbsession.query(Evento).get(idEvento)
     a = dbsession.query(Actor).get(e.administrador)
     
     res['nombreEvento'] = e.nombre
@@ -157,7 +156,7 @@ def VInicioAdministrador():
     
     res['eventos'] = []
     for evento in aux :
-        res['eventos'].append({'eventoid':evento.id, 'nombre':evento.nombre, 'fecha':evento.fecha, 'cupos_disponibles':evento.cupos_disponibles})
+        res['eventos'].append({'id':evento.id, 'nombre':evento.nombre, 'fecha':evento.fecha, 'cupos_disponibles':evento.cupos_disponibles})
 
     #Action code ends here
     return json.dumps(res)

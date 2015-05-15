@@ -27,7 +27,7 @@
 
 <ul>
 	<div ng-repeat="evento in res.eventos">
-		<div ng-click="VEvento1()">
+		<div ng-click="VEvento1(evento.id)">
 			<li>
 				{{evento.nombre}}
 				{{evento.fecha}}

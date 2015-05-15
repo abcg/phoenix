@@ -2,7 +2,7 @@ eventosModule.config(function ($routeProvider) {
     $routeProvider.when('/VInicioAdministrador', {
                 controller: 'VInicioAdministradorController',
                 templateUrl: 'app/admin/VInicioAdministrador.html'
-            }).when('/VEvento', {
+            }).when('/VEvento/:idEvento', {
                 controller: 'VEventoController',
                 templateUrl: 'app/admin/VEvento.html'
             }).when('/VRegistroEvento', {
@@ -36,8 +36,8 @@ eventosModule.controller('VInicioAdministradorController',
       $scope.VRegistroEvento0 = function() {
         $location.path('/VRegistroEvento');
       };
-      $scope.VEvento1 = function() {
-        $location.path('/VEvento');
+      $scope.VEvento1 = function(args) {
+        $location.path('/VEvento/'+args);
       };
       $scope.ADesconectarse2 = function() {
           
@@ -54,10 +54,10 @@ eventosModule.controller('VInicioAdministradorController',
 
     }]);
 eventosModule.controller('VEventoController', 
-   ['$scope', '$location', '$route', 'flash', 'adminService', 'loginService',
-    function ($scope, $location, $route, flash, adminService, loginService) {
+   ['$scope', '$location', '$route', '$routeParams', 'flash', 'adminService', 'loginService',
+    function ($scope, $location, $route, $routeParams, flash, adminService, loginService) {
       $scope.msg = '';
-      adminService.VEvento().then(function (object) {
+      adminService.VEvento($routeParams.idEvento).then(function (object) {
         $scope.res = object.data;
         for (var key in object.data) {
             $scope[key] = object.data[key];

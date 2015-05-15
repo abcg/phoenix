@@ -137,6 +137,7 @@ def VEvento(idEvento):
     e = dbsession.query(Evento).get(idEvento)
     a = dbsession.query(Actor).get(e.administrador)
     
+    res['id'] = e.id
     res['nombreEvento'] = e.nombre
     res['descripcion'] = e.descripcion
     res['lugar'] = e.lugar
@@ -166,13 +167,24 @@ def VInicioAdministrador():
 
 
 
-@admin.route('/admin/VModificarEvento/:idEvento')
+@admin.route('/admin/VModificarEvento/<idEvento>')
 def VModificarEvento(idEvento):
+    print "Entrando en rutina VModificarEvento con argumento %s" % idEvento
     res = {}
     if "actor" in session:
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
 
+    evento = dbsession.query(Evento).get(idEvento)
+
+    res = { 'id': evento.id,
+            'nombre': evento.nombre,
+            'descripcion': evento.descripcion,
+            'lugar': evento.lugar,
+            'fecha': evento.fecha,
+            'total_cupos':evento.total_cupos,
+            'cupos_disponibles':evento.cupos_disponibles
+    }
 
     #Action code ends here
     return json.dumps(res)

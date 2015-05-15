@@ -69,8 +69,8 @@ eventosModule.controller('VEventoController',
       $scope.VAfiche0 = function() {
         $location.path('/VAfiche');
       };
-      $scope.VModificarEvento1 = function() {
-        $location.path('/VModificarEvento');
+      $scope.VModificarEvento1 = function(args) {
+        $location.path('/VModificarEvento/'+args);
       };
       $scope.VParticipantes2 = function() {
         $location.path('/VParticipantes');
@@ -224,6 +224,11 @@ eventosModule.controller('VModificarEventoController',
         if ($scope.logout) {
             $location.path('/');
         }
+        $scope.modificacionEventoForm.nombreEvento = object.data['nombre'];
+        $scope.modificacionEventoForm.descripcion = object.data['descripcion'];
+        $scope.modificacionEventoForm.fecha = object.data['fecha']
+        $scope.modificacionEventoForm.lugar = object.data['lugar']
+        $scope.modificacionEventoForm.maxparticipantes = object.data['total_cupos']
       });
       $scope.VEvento1 = function() {
         $location.path('/VEvento/'+$routeParams.idEvento);

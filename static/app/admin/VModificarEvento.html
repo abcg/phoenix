@@ -23,12 +23,70 @@
     </div>
 </nav>
 
-    <form name="modificacionEventoFormForm" ng-submit="AModificarEvento0(modificacionEventoFormForm.$valid)" novalidate>
-            <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted && modificacionEventoFormForm.nombreEvento.$invalid && modificacionEventoFormForm.nombreEvento.$pristine && modificacionEventoFormSubmitted}"><label for="modificacionEventoForm_nombreEvento">nombreEvento</label><input id="modificacionEventoForm_nombreEvento" type="text" name="nombreEvento" class="form-control" ng-model="modificacionEventoForm.nombreEvento" placeholder="nombreEvento" required/><p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.nombreEvento.$invalid" class="help-block">Error en campo nombreEvento.</p></div>
-            <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted && modificacionEventoFormForm.fecha.$invalid && modificacionEventoFormForm.fecha.$pristine && modificacionEventoFormSubmitted}"><label for="modificacionEventoForm_fecha">fecha</label><input id="modificacionEventoForm_fecha" type="date" name="fecha" class="form-control" ng-model="modificacionEventoForm.fecha" placeholder="fecha" required/><p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.fecha.$invalid" class="help-block">Error en campo fecha.</p></div>
-            <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted && modificacionEventoFormForm.lugar.$invalid && modificacionEventoFormForm.lugar.$pristine && modificacionEventoFormSubmitted}"><label for="modificacionEventoForm_lugar">lugar</label><input id="modificacionEventoForm_lugar" type="text" name="lugar" class="form-control" ng-model="modificacionEventoForm.lugar" placeholder="lugar" required/><p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.lugar.$invalid" class="help-block">Error en campo lugar.</p></div>
-            <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted && modificacionEventoFormForm.maxparticipantes.$invalid && modificacionEventoFormForm.maxparticipantes.$pristine && modificacionEventoFormSubmitted}"><label for="modificacionEventoForm_maxparticipantes">maxparticipantes</label><input id="modificacionEventoForm_maxparticipantes" type="number" name="maxparticipantes" class="form-control" ng-model="modificacionEventoForm.maxparticipantes" placeholder="maxparticipantes" required min=""/><p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.maxparticipantes.$invalid" class="help-block">Error en campo maxparticipantes.</p></div>
-            <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted && modificacionEventoFormForm.descripcion.$invalid && modificacionEventoFormForm.descripcion.$pristine && modificacionEventoFormSubmitted}"><label for="modificacionEventoForm_descripcion">descripcion</label><textarea id="modificacionEventoForm_descripcion" name="descripcion" class="form-control" ng-model="modificacionEventoForm.descripcion" placeholder="descripcion" required></textarea><p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.descripcion.$invalid" class="help-block">Error en campo descripcion.</p></div>
+    <form name="modificacionEventoFormForm"
+          ng-submit="AModificarEvento0(modificacionEventoFormForm.$valid)" novalidate>
+            <div class="form-group"
+                 ng-class="{ 'has-error' :  modificacionEventoFormSubmitted && modificacionEventoFormForm.nombreEvento.$invalid &&
+                                            modificacionEventoFormForm.nombreEvento.$pristine &&
+                                            modificacionEventoFormSubmitted}">
+                    <label for="modificacionEventoForm_nombreEvento">
+                        Nombre del evento
+                    </label>
+                    <input id="modificacionEventoForm_nombreEvento"
+                           type="text"
+                           name="nombreEvento"
+                           class="form-control"
+                           ng-model="modificacionEventoForm.nombreEvento"
+                           placeholder="Introduzca el nombre del evento" required/>
+                             <p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.nombreEvento.$invalid"
+                                class="help-block">Error en campo 'Nombre del evento'
+                            </p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted &&
+                                                                                      modificacionEventoFormForm.descripcion.$invalid &&
+                                                                                      modificacionEventoFormForm.descripcion.$pristine &&
+                                                                                      modificacionEventoFormSubmitted}">
+                <label for="modificacionEventoForm_descripcion">Descripción</label>
+                <textarea id="modificacionEventoForm_descripcion" name="descripcion" class="form-control" ng-model="modificacionEventoForm.descripcion"
+                          placeholder="descripcion" required></textarea>
+                <p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.descripcion.$invalid" class="help-block">
+                    Error en campo 'Descripción'.
+                </p>
+            </div>
+            <div class="form-group"
+                 ng-class="{ 'has-error' :  modificacionEventoFormSubmitted &&
+                                            modificacionEventoFormForm.fecha.$invalid &&
+                                            modificacionEventoFormForm.fecha.$pristine &&
+                                            modificacionEventoFormSubmitted}">
+                    <label for="modificacionEventoForm_fecha">Fecha</label>
+                    <input id="modificacionEventoForm_fecha"
+                           type="date"
+                           name="fecha"
+                           class="form-control"
+                           ng-model="modificacionEventoForm.fecha"
+                           placeholder="fecha" required/>
+                               <p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.fecha.$invalid" class="help-block">Error en campo 'Fecha'</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted &&
+                                                                                modificacionEventoFormForm.lugar.$invalid &&
+                                                                                modificacionEventoFormForm.lugar.$pristine &&
+                                                                                modificacionEventoFormSubmitted}">
+                    <label for="modificacionEventoForm_lugar">Lugar</label>
+                    <input id="modificacionEventoForm_lugar" type="text" name="lugar" class="form-control"
+                          ng-model="modificacionEventoForm.lugar" placeholder="lugar" required/>
+                    <p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.lugar.$invalid" class="help-block">Error en campo 'Lugar'.</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted &&
+                                                                                      modificacionEventoFormForm.maxparticipantes.$invalid &&
+                                                                                      modificacionEventoFormForm.maxparticipantes.$pristine &&
+                                                                                      modificacionEventoFormSubmitted}">
+                <label for="modificacionEventoForm_maxparticipantes">Número de cupos</label>
+                <input id="modificacionEventoForm_maxparticipantes" type="number" name="maxparticipantes" class="form-control"
+                       ng-model="modificacionEventoForm.maxparticipantes" placeholder="maxparticipantes" required min=""/>
+                    <p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.maxparticipantes.$invalid" class="help-block">
+                        Error en campo 'Número de cupos'.
+                    </p>
+            </div>
         <button type="submit" class="btn btn-perso btn-lg btn-block">
             <span class="glyphicon glyphicon-flash"></span>Modificar Evento
         </button>

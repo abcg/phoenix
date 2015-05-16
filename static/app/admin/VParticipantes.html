@@ -16,6 +16,13 @@
   Desconectarse</a></li>
 
             </ul>
+            <ul>
+                <div ng-repeat="participante in participantes">
+                    <li>
+                        {{nombre + " " + correo}}
+                    </li>
+                </div>  
+            </ul>
             <ul class="nav navbar-nav navbar-right">
 <li class="navbar-text" ng-show="usuario.nombre" ng-bind="usuario.nombre"></li>
             </ul>

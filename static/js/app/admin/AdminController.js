@@ -11,7 +11,7 @@ eventosModule.config(function ($routeProvider) {
             }).when('/VAfiche', {
                 controller: 'VAficheController',
                 templateUrl: 'app/admin/VAfiche.html'
-            }).when('/VParticipantes', {
+            }).when('/VParticipantes/:idEvento', {
                 controller: 'VParticipantesController',
                 templateUrl: 'app/admin/VParticipantes.html'
             }).when('/VModificarEvento/:idEvento', {
@@ -72,8 +72,8 @@ eventosModule.controller('VEventoController',
       $scope.VModificarEvento1 = function(args) {
         $location.path('/VModificarEvento/'+args);
       };
-      $scope.VParticipantes2 = function() {
-        $location.path('/VParticipantes');
+      $scope.VParticipantes2 = function(idEvento) {
+        $location.path('/VParticipantes/'+idEvento);
       };
       $scope.VInicioAdministrador1 = function() {
         $location.path('/VInicioAdministrador');
@@ -174,10 +174,10 @@ eventosModule.controller('VAficheController',
       });
     }]);
 eventosModule.controller('VParticipantesController', 
-   ['$scope', '$location', '$route', 'flash', 'adminService', 'loginService',
-    function ($scope, $location, $route, flash, adminService, loginService) {
+   ['$scope', '$location', '$route', '$routeParams', 'flash', 'adminService', 'loginService',
+    function ($scope, $location, $route, $routeParams, flash, adminService, loginService) {
       $scope.msg = '';
-      adminService.VParticipantes().then(function (object) {
+      adminService.VParticipantes($routeParams.idEvento).then(function (object) {
         $scope.res = object.data;
         for (var key in object.data) {
             $scope[key] = object.data[key];
@@ -186,8 +186,8 @@ eventosModule.controller('VParticipantesController',
             $location.path('/');
         }
       });
-      $scope.VEvento0 = function() {
-        $location.path('/VEvento');
+      $scope.VEvento0 = function(idEvento) {
+        $location.path('/VEvento/'+idEvento);
       };
       $scope.AGuardarAsistencia1 = function(participantes) {
           

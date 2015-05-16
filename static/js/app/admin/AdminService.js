@@ -120,7 +120,7 @@ eventosModule.service('adminService', ['$q', '$http', function($q, $http) {
     this.VParticipantes = function(args) {
         if(typeof args == 'undefined') args={};
         return $http({
-          url: 'admin/VParticipantes',
+          url: 'admin/VParticipantes/'+args,
           method: 'GET',
           params: args
         });

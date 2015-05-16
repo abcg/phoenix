@@ -221,13 +221,21 @@ def VModificarEvento(idEvento):
 
 
 
-@admin.route('/admin/VParticipantes')
-def VParticipantes():
+@admin.route('/admin/VParticipantes/<idEvento>')
+def VParticipantes(idEvento):
     res = {}
     if "actor" in session:
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
+    reservas = dbsession.query(Reserva).filter(Reserva.evento_id==idEvento)
 
+    participantes = []
+
+    for reserva in reservas:
+        participante = dbsession.query(Actor).get(reserva.actor_correo)
+        participantes.append({ 'correo' : participante.correo, 'nombre' : participante.nombre })
+
+    res['participantes'] = participantes
 
     #Action code ends here
     return json.dumps(res)

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import request, session, Blueprint, json
+from datetime import *
 from models import *
 admin = Blueprint('admin', __name__)
 
@@ -61,15 +62,33 @@ def AGuardarAsistencia():
 
 
 
-@admin.route('/admin/AModificarEvento', methods=['POST'])
-def AModificarEvento():
+@admin.route('/admin/AModificarEvento/<idEvento>', methods=['POST'])
+def AModificarEvento(idEvento):
     #GET parameter
     formulario = request.get_json()
-    results = [{'label':'/VEvento', 'msg':[ur'Evento modificado']}, {'label':'/VModificarEvento', 'msg':[ur'Evento no modificado']}, ]
+    results = [{'label':'/VEvento/'+idEvento, 'msg':[ur'Evento modificado']}, {'label':'/VModificarEvento/'+idEvento, 'msg':[ur'Evento no modificado']}, ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
     
+    evento = dbsession.query(Evento).get(idEvento)
 
+    nro_personas_inscritas = evento.total_cupos - evento.cupos_disponibles
+
+    evento.nombre = formulario['nombreEvento']
+    evento.descripcion = formulario['descripcion']
+    evento.fecha = formulario['fecha'] # CUIDADO QUE FALTA
+    evento.lugar = formulario['lugar']
+    evento.total_cupos = formulario['maxparticipantes']
+    evento.cupos_disponibles = evento.total_cupos - nro_personas_inscritas
+
+    if evento.cupos_disponibles < 0:
+        # Faltan pruebas
+        res = results[1]
+        res['msg'].append('Actualmente hay %s persona(s) inscritas. El nuevo número de cupos no pueder ser inferior a %s.' % \
+            (nro_personas_inscritas, nro_personas_inscritas))
+    else:
+        dbsession.add(evento)
+        dbsession.commit()
 
     #Action code ends here
     if "actor" in res:

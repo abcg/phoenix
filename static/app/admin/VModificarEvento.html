@@ -24,7 +24,7 @@
 </nav>
 
     <form name="modificacionEventoFormForm"
-          ng-submit="AModificarEvento0(modificacionEventoFormForm.$valid)" novalidate>
+          ng-submit="AModificarEvento0(modificacionEventoFormForm.$valid, id)" novalidate>
             <div class="form-group"
                  ng-class="{ 'has-error' :  modificacionEventoFormSubmitted && modificacionEventoFormForm.nombreEvento.$invalid &&
                                             modificacionEventoFormForm.nombreEvento.$pristine &&

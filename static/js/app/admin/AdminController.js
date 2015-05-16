@@ -247,15 +247,15 @@ eventosModule.controller('VModificarEventoController',
         });};
 
       $scope.modificacionEventoFormSubmitted = false;
-      $scope.AModificarEvento0 = function(isValid) {
+      $scope.AModificarEvento0 = function(isValid, idEvento) {
         $scope.modificacionEventoFormSubmitted = true;
         if (isValid) {
           
-          adminService.AModificarEvento($scope.modificacionEventoForm).then(function (object) {
+          adminService.AModificarEvento($scope.modificacionEventoForm, idEvento).then(function (object) {
               var msg = object.data["msg"];
               if (msg) flash(msg);
               var label = object.data["label"];
-              if (label == '/VModificarEvento') {
+              if (label == '/VModificarEvento/'+idEvento) {
                   $route.reload();
               } else {
                   $location.path(label);

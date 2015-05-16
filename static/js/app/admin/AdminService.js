@@ -26,9 +26,9 @@ eventosModule.service('adminService', ['$q', '$http', function($q, $http) {
     //    return deferred.promise;
     };
 
-    this.AModificarEvento = function(modificacionEventoForm) {
+    this.AModificarEvento = function(modificacionEventoForm, idEvento) {
         return  $http({
-          url: "admin/AModificarEvento",
+          url: "admin/AModificarEvento/"+idEvento,
           data: modificacionEventoForm,
           method: 'POST',
         });

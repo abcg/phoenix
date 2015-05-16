@@ -139,6 +139,7 @@ def VEvento(idEvento):
     
     res['nombreEvento'] = e.nombre
     res['descripcion'] = e.descripcion
+    res['fecha'] = e.fecha
     res['lugar'] = e.lugar
     res['nroCupos'] = e.total_cupos
     res['cuposDisponibles'] = e.cupos_disponibles
@@ -164,9 +165,7 @@ def VInicioAdministrador():
     #Action code ends here
     return json.dumps(res)
 
-
-
-@admin.route('/admin/VModificarEvento/:idEvento')
+@admin.route('/admin/VModificarEvento/<idEvento>')
 def VModificarEvento(idEvento):
     res = {}
     if "actor" in session:

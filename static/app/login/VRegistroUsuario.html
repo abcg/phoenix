@@ -12,6 +12,8 @@
         </div>
         <div class="collapse navbar-collapse" id="contenido-plegable">
             <ul class="nav navbar-nav navbar-left">
+				<li><a ng-click="VPortada0()">
+  Regresar</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
 <li class="navbar-text" ng-show="usuario.nombre" ng-bind="usuario.nombre"></li>
@@ -21,11 +23,11 @@
 </nav>
 
     <form name="registroUsuarioFormForm" ng-submit="ARegistrarUsuario0(registroUsuarioFormForm.$valid)" novalidate>
-            <div class="form-group" ng-class="{ 'has-error' :  registroUsuarioFormSubmitted && registroUsuarioFormForm.nombre.$invalid && registroUsuarioFormForm.nombre.$pristine && registroUsuarioFormSubmitted}"><label for="registroUsuarioForm_nombre">nombre</label><input id="registroUsuarioForm_nombre" type="text" name="nombre" class="form-control" ng-model="registroUsuarioForm.nombre" placeholder="nombre" required/><p ng-show="registroUsuarioFormSubmitted && registroUsuarioFormForm.nombre.$invalid" class="help-block">Error en campo nombre.</p></div>
-            <div class="form-group" ng-class="{ 'has-error' :  registroUsuarioFormSubmitted && registroUsuarioFormForm.correo.$invalid && registroUsuarioFormForm.correo.$pristine && registroUsuarioFormSubmitted}"><label for="registroUsuarioForm_correo">correo</label><input id="registroUsuarioForm_correo" type="email" name="correo" class="form-control" ng-model="registroUsuarioForm.correo" placeholder="correo" required/><p ng-show="registroUsuarioFormSubmitted && registroUsuarioFormForm.correo.$invalid" class="help-block">Error en campo correo.</p></div>
-            <div class="form-group" ng-class="{ 'has-error' :  registroUsuarioFormSubmitted && registroUsuarioFormForm.clave.$invalid && registroUsuarioFormForm.clave.$pristine && registroUsuarioFormSubmitted}"><label for="registroUsuarioForm_clave">clave</label><input id="registroUsuarioForm_clave" type="password" name="clave" class="form-control" ng-model="registroUsuarioForm.clave" placeholder="clave" required/><p ng-show="registroUsuarioFormSubmitted && registroUsuarioFormForm.clave.$invalid" class="help-block">Error en campo clave.</p></div>
+            <div class="form-group" ng-class="{ 'has-error' :  registroUsuarioFormSubmitted && registroUsuarioFormForm.nombre.$invalid && registroUsuarioFormForm.nombre.$pristine && registroUsuarioFormSubmitted}"><label for="registroUsuarioForm_nombre">Nombre</label><input id="registroUsuarioForm_nombre" type="text" name="nombre" class="form-control" ng-model="registroUsuarioForm.nombre" placeholder="Nombre" required/><p ng-show="registroUsuarioFormSubmitted && registroUsuarioFormForm.nombre.$invalid" class="help-block">Error en campo nombre.</p></div>
+            <div class="form-group" ng-class="{ 'has-error' :  registroUsuarioFormSubmitted && registroUsuarioFormForm.correo.$invalid && registroUsuarioFormForm.correo.$pristine && registroUsuarioFormSubmitted}"><label for="registroUsuarioForm_correo">Correo</label><input id="registroUsuarioForm_correo" type="email" name="correo" class="form-control" ng-model="registroUsuarioForm.correo" placeholder="Correo" required/><p ng-show="registroUsuarioFormSubmitted && registroUsuarioFormForm.correo.$invalid" class="help-block">Error en campo correo.</p></div>
+            <div class="form-group" ng-class="{ 'has-error' :  registroUsuarioFormSubmitted && registroUsuarioFormForm.clave.$invalid && registroUsuarioFormForm.clave.$pristine && registroUsuarioFormSubmitted}"><label for="registroUsuarioForm_clave">Clave</label><input id="registroUsuarioForm_clave" type="password" name="clave" class="form-control" ng-model="registroUsuarioForm.clave" placeholder="Clave" required/><p ng-show="registroUsuarioFormSubmitted && registroUsuarioFormForm.clave.$invalid" class="help-block">Error en campo clave.</p></div>
         <button type="submit" class="btn btn-perso btn-lg btn-block">
-            <span class="glyphicon glyphicon-flash"></span>Registrar Usuario
+            Registrar Usuario
         </button>
     </form>
     <hr />

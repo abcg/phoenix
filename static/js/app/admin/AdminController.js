@@ -70,7 +70,7 @@ eventosModule.controller('VEventoController',
         $location.path('/VAfiche');
       };
       $scope.VModificarEvento1 = function() {
-        $location.path('/VModificarEvento');
+        $location.path('/VModificarEvento/:idEvento');
       };
       $scope.VParticipantes2 = function() {
         $location.path('/VParticipantes');

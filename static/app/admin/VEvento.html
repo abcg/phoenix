@@ -12,13 +12,13 @@
         </div>
         <div class="collapse navbar-collapse" id="contenido-plegable">
             <ul class="nav navbar-nav navbar-left">
-<li><a ng-click="ADesconectarse4()">
-  Desconectarse</a></li>
   <li><a ng-click="VInicioAdministrador1()">
   Regresar</a></li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
+<li><a ng-click="ADesconectarse4()">
+  Desconectarse</a></li>
 <li class="navbar-text" ng-show="usuario.nombre" ng-bind="usuario.nombre"></li>
             </ul>
         </div>
@@ -26,32 +26,23 @@
     </div>
 </nav>
 
-	<h1>{{nombreEvento}}</h1>
-	<p>{{nombreAdmin}}</p>
+	<h1 align="center">{{nombreEvento}}</h1>
+	<p align="center">{{nombreAdmin}}</p></br>
 	
-	<p>Lugar: {{lugar}}</p>
-	<p>Descripción: {{descripcion}}</p>
+	<div style="margin-left: 400px; margin-right: 400px;">
+		<p><b>Fecha:</b> {{fecha}}</p>
+		<p><b>Lugar:</b> {{lugar}}</p>
+		<p><b>Descripción:</b> {{descripcion}}</p>
+		
+		</br><p><b>Máx. Participantes:</b> {{nroCupos}}</p>
+		<p><b>Cupos disponibles:</b> {{cuposDisponibles}}</p>
+	</div>
 	
-	</br><p>Máx. Participantes: {{nroCupos}}</p>
-	<p>Cupos disponibles: {{cuposDisponibles}}</p>
-	
-	<a ng-click="VParticipantes2()">Ver Participantes</a>
-	</br><a ng-click="VModificarEvento1(id)">Modificar Evento</a>
-	</br><a ng-click="verificarEliminacion(id)">Eliminar Evento</a>
-	
-            </tr>
-        </table>
-
-<hr />            </tr>
-        </table>
-
-<hr />            </tr>
-        </table>
-
-<hr />            </tr>
-        </table>
-
-<hr />
+	<div align="center">
+		</br><a ng-click="VParticipantes2()">Ver Participantes</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a ng-click="VModificarEvento1()">Modificar Evento</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a ng-click="verificarEliminacion(id)">Eliminar Evento</a>
+	</div>
 
 
 <div id="right"></div>

@@ -169,6 +169,7 @@ def VEvento(idEvento):
     res['id'] = e.id
     res['nombreEvento'] = e.nombre
     res['descripcion'] = e.descripcion
+    res['fecha'] = e.fecha
     res['lugar'] = e.lugar
     res['nroCupos'] = e.total_cupos
     res['cuposDisponibles'] = e.cupos_disponibles

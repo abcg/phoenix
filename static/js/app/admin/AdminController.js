@@ -90,6 +90,11 @@ eventosModule.controller('VEventoController',
               $location.path(label);
           }
         });};
+      $scope.verificarEliminacion = function(idEvento) {
+        if (confirm("̣¿Está seguro de que desea eliminar este evento?")) {
+				$scope.AEliminarEvento3(idEvento);
+	    }
+      };
       $scope.ADesconectarse4 = function() {
           
         adminService.ADesconectarse().then(function (object) {

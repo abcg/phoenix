@@ -12,7 +12,8 @@ def ADesconectarse():
     results = [{'label':'/VPortada', 'msg':[ur'Usuario desconectado'], "actor":None}, ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
-
+    session.pop('usuario')
+    session.pop('correo')
 
     #Action code ends here
     if "actor" in res:
@@ -32,6 +33,15 @@ def AEliminarEvento():
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
 
+    print "Ejecutando rutina AEliminarEvento con parametro %s" % evento
+
+    # Primero, eliminar las reservas asociadas al evento
+    dbsession.query(Reserva).filter(Reserva.evento_id==evento).delete(synchronize_session=False)
+
+    # Finalmente, eliminar el evento
+    dbsession.query(Evento).filter(Evento.id==evento).delete(synchronize_session=False)
+
+    dbsession.commit()   
 
     #Action code ends here
     if "actor" in res:

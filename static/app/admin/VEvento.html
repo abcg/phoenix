@@ -37,16 +37,8 @@
 	
 	<a ng-click="VParticipantes2()">Ver Participantes</a>
 	</br><a ng-click="VModificarEvento1(id)">Modificar Evento</a>
-	</br><a ng-click="borrarEvento()">Eliminar Evento</a>
+	</br><a ng-click="verificarEliminacion(id)">Eliminar Evento</a>
 	
-	
-	<script>
-		function borrarEvento(id) {
-			if (confirm("̣Está seguro de que desea eliminar este evento?") == true) {
-				AEliminarEvento(id);
-			}
-		}
-	</script>
             </tr>
         </table>
 

@@ -2,7 +2,7 @@ eventosModule.config(function ($routeProvider) {
     $routeProvider.when('/VInicioUsuario', {
                 controller: 'VInicioUsuarioController',
                 templateUrl: 'app/usuario/VInicioUsuario.html'
-            }).when('/VEventoUsuario', {
+            }).when('/VEventoUsuario/:idEvento', {
                 controller: 'VEventoUsuarioController',
                 templateUrl: 'app/usuario/VEventoUsuario.html'
             }).when('/VAficheUsuario', {
@@ -27,8 +27,8 @@ eventosModule.controller('VInicioUsuarioController',
             $location.path('/');
         }
       });
-      $scope.VEventoUsuario0 = function() {
-        $location.path('/VEventoUsuario');
+      $scope.VEventoUsuario0 = function(args) {
+        $location.path('/VEventoUsuario/'+args);
       };
       $scope.ADesconectarseUsuario1 = function() {
           
@@ -45,10 +45,10 @@ eventosModule.controller('VInicioUsuarioController',
 
     }]);
 eventosModule.controller('VEventoUsuarioController', 
-   ['$scope', '$location', '$route', 'flash', 'loginService', 'usuarioService',
-    function ($scope, $location, $route, flash, loginService, usuarioService) {
+   ['$scope', '$location', '$route', '$routeParams', 'flash', 'loginService', 'usuarioService',
+    function ($scope, $location, $route, $routeParams, flash, loginService, usuarioService) {
       $scope.msg = '';
-      usuarioService.VEventoUsuario().then(function (object) {
+      usuarioService.VEventoUsuario($routeParams.idEvento).then(function (object) {
         $scope.res = object.data;
         for (var key in object.data) {
             $scope[key] = object.data[key];
@@ -57,6 +57,9 @@ eventosModule.controller('VEventoUsuarioController',
             $location.path('/');
         }
       });
+      $scope.VInicioUsuario1 = function() {
+        $location.path('/VInicioUsuario');
+      };
       $scope.AInscribirEvento0 = function(evento) {
           
         usuarioService.AInscribirEvento({"evento":((typeof evento === 'object')?JSON.stringify(evento):evento)}).then(function (object) {

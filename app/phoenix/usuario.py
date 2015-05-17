@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import request, session, Blueprint, json
-
+from datetime import *
+from models import *
 usuario = Blueprint('usuario', __name__)
 
 
@@ -106,13 +107,23 @@ def VCertificadoUsuario():
 
 
 
-@usuario.route('/usuario/VEventoUsuario')
-def VEventoUsuario():
+@usuario.route('/usuario/VEventoUsuario/<idEvento>')
+def VEventoUsuario(idEvento):
     res = {}
     if "actor" in session:
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
-
+    evento = dbsession.query(Evento).get(idEvento)
+    admin = dbsession.query(Actor).get(evento.administrador)
+    
+    res['id'] = evento.id
+    res['nombreEvento'] = evento.nombre
+    res['descripcion'] = evento.descripcion
+    res['fecha'] = evento.fecha
+    res['lugar'] = evento.lugar
+    res['nroCupos'] = evento.total_cupos
+    res['cuposDisponibles'] = evento.cupos_disponibles
+    res['nombreAdmin'] = admin.nombre
 
     #Action code ends here
     return json.dumps(res)
@@ -125,7 +136,11 @@ def VInicioUsuario():
     if "actor" in session:
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
-
+	aux = dbsession.query(Evento).order_by(Evento.id.desc()).all()
+	
+	res['eventos'] = []
+    for evento in aux :
+        res['eventos'].append({'id':evento.id, 'nombre':evento.nombre, 'fecha':evento.fecha, 'cupos_disponibles':evento.cupos_disponibles})
 
     #Action code ends here
     return json.dumps(res)

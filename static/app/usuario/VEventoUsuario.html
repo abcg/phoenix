@@ -12,32 +12,34 @@
         </div>
         <div class="collapse navbar-collapse" id="contenido-plegable">
             <ul class="nav navbar-nav navbar-left">
+<li><a ng-click="VInicioUsuario1()">
+  Regresar</a></li>
 <li><a ng-click="AInscribirEvento0(evento)">
-  Inscribir evento</a></li>
+  Inscribirse en Evento</a></li>
 <li><a ng-click="VAficheUsuario1()"
        ng-show="actor=='actor_usuario' || false">
   Ver afiche</a></li>
-<li><a ng-click="ADesconectarseUsuario3()">
-  Desconectarse</a></li>
-
             </ul>
             <ul class="nav navbar-nav navbar-right">
+				<li><a ng-click="ADesconectarseUsuario3()">
+  Desconectarse</a></li>
 <li class="navbar-text" ng-show="usuario.nombre" ng-bind="usuario.nombre"></li>
             </ul>
         </div>
     </div>
 </nav>
 
-            </tr>
-        </table>
-
-<hr />            </tr>
-        </table>
-
-<hr />            </tr>
-        </table>
-
-<hr />
+	<h1 align="center">{{nombreEvento}}</h1>
+	<p align="center">{{nombreAdmin}}</p></br>
+	
+	<div style="margin-left: 400px; margin-right: 400px;">
+		<p><b>Fecha:</b> {{fecha}}</p>
+		<p><b>Lugar:</b> {{lugar}}</p>
+		<p><b>Descripción:</b> {{descripcion}}</p>
+		
+		</br><p><b>Máx. Participantes:</b> {{nroCupos}}</p>
+		<p><b>Cupos disponibles:</b> {{cuposDisponibles}}</p>
+	</div>
 
 
 <div id="right"></div>

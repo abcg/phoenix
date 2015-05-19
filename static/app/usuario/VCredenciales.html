@@ -12,16 +12,11 @@
         </div>
         <div class="collapse navbar-collapse" id="contenido-plegable">
             <ul class="nav navbar-nav navbar-left">
-<li><a ng-click="VInicioUsuario1()">
+<li><a ng-click="VEventoUsuario9(id)">
   Regresar</a></li>
-<li><a ng-click="confirmarRegistro(id)">
-  Inscribirse en Evento</a></li>
-<li><a ng-click="VAficheUsuario1()"
-       ng-show="actor=='actor_usuario' || false">
-  Ver afiche</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-				<li><a ng-click="ADesconectarseUsuario3()">
+				<li><a ng-click="ADesconectarseUsuario9()">
   Desconectarse</a></li>
 <li class="navbar-text" ng-show="usuario.nombre" ng-bind="usuario.nombre"></li>
             </ul>
@@ -29,22 +24,15 @@
     </div>
 </nav>
 
-	<h1 align="center">{{nombreEvento}}</h1>
-	<p align="center">{{nombreAdmin}}</p></br>
+    
+
+	<h1 align="center">{{id}}</h1>
+	<p align="center">{{nombre}}</p></br>
 	
 	<div style="margin-left: 400px; margin-right: 400px;">
 		<p><b>Fecha:</b> {{fecha}}</p>
 		<p><b>Lugar:</b> {{lugar}}</p>
-		<p><b>Descripción:</b> {{descripcion}}</p>
-		
-		</br><p><b>Máx. Participantes:</b> {{nroCupos}}</p>
-		<p><b>Cupos disponibles:</b> {{cuposDisponibles}}</p>
 	</div>
-	
-	</br>
-	<div align="center">
-		<a ng-click="VCredenciales9(id)">Ver Credenciales</a>
-    </div>
 
 
 <div id="right"></div>

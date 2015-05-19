@@ -11,6 +11,9 @@ eventosModule.config(function ($routeProvider) {
             }).when('/VCertificadoUsuario', {
                 controller: 'VCertificadoUsuarioController',
                 templateUrl: 'app/usuario/VCertificadoUsuario.html'
+            }).when('/VCredenciales/:idEvento', {
+                controller: 'VCredencialesController',
+                templateUrl: 'app/usuario/VCredenciales.html'
             });
 });
 
@@ -75,6 +78,9 @@ eventosModule.controller('VEventoUsuarioController',
       $scope.VAficheUsuario1 = function() {
         $location.path('/VAficheUsuario');
       };
+      $scope.VCredenciales9 = function(args) {
+        $location.path('/VCredenciales/'+args);
+      };
       $scope.AGenerarCredencial2 = function(evento) {
           
         usuarioService.AGenerarCredencial({"evento":((typeof evento === 'object')?JSON.stringify(evento):evento)}).then(function (object) {
@@ -87,6 +93,11 @@ eventosModule.controller('VEventoUsuarioController',
               $location.path(label);
           }
         });};
+      $scope.confirmarRegistro = function(idEvento) {
+        if (confirm("̣¿Está seguro de que desea inscribirse en este evento?")) {
+				$scope.AInscribirEvento0(idEvento);
+	    }
+      };  
       $scope.ADesconectarseUsuario3 = function() {
           
         usuarioService.ADesconectarseUsuario().then(function (object) {
@@ -116,6 +127,38 @@ eventosModule.controller('VEventoUsuarioController',
       };
 
     }]);
+
+eventosModule.controller('VCredencialesController/:idEvento', 
+   ['$scope', '$location', '$route', '$routeParams', 'flash', 'loginService', 'usuarioService',
+    function ($scope, $location, $route, $routeParams, flash, loginService, usuarioService) {
+      $scope.msg = '';
+      usuarioService.VCredenciales($routeParams.idEvento).then(function (object) {
+        $scope.res = object.data;
+        for (var key in object.data) {
+            $scope[key] = object.data[key];
+        }
+        if ($scope.logout) {
+            $location.path('/');
+        }
+      });
+      $scope.VEventoUsuario9 = function(args) {
+        $location.path('/VEventoUsuario/'+args);
+      };
+      $scope.ADesconectarseUsuario9 = function() {
+          
+        usuarioService.ADesconectarseUsuario().then(function (object) {
+          var msg = object.data["msg"];
+          if (msg) flash(msg);
+          var label = object.data["label"];
+          if (label == '/VEventoUsuario') {
+              $route.reload();
+          } else {
+              $location.path(label);
+          }
+        });};
+    }]);
+    
+    
 eventosModule.controller('VAficheUsuarioController', 
    ['$scope', '$location', '$route', 'flash', 'loginService', 'usuarioService',
     function ($scope, $location, $route, flash, loginService, usuarioService) {

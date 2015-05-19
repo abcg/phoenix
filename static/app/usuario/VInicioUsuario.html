@@ -54,17 +54,34 @@
 </ul>
 </br>
 
-<h1 align="center">"Eventos donde usuario esta registrado"</h1>
+<h1 align="center">Mis Eventos Reservados</h1>
 <div style="background-color: #000066">
 	<table align="center">
 		<tr>
 			<td style="width: 40px;"></td>
 			<td style="width: 300px; text-align: center; color: #FFFFFF;"><b>Nombre del Evento</b></td><td></td>
 			<td style="width: 300px; text-align: center; color: #FFFFFF;"><b>Fecha</b></td><td></td>
-			<td style="width: 300px; text-align: center; color: #FFFFFF;"><b>Cupos Disponibles</b></td>
+			<td style="width: 300px; text-align: center; color: #FFFFFF;"><b>Lugar</b></td>
 		</tr>
 	</table>
 </div>
+</br>
 
+<ul>
+	<div ng-repeat="evento in res.eventos_inscritos">
+		<div ng-click="VEventoUsuario0(evento.id)">
+			
+			<table align="center">
+				<tr>
+					<td style="width: 300px; text-align: center;"><b>{{evento.nombre}}</b></td><td></td>
+					<td style="width: 300px; text-align: center;">{{evento.fecha}}</td><td></td>
+					<td style="width: 300px; text-align: center;">{{evento.lugar}}</td>
+				</tr>
+			</table>
+			<hr />
+			
+		</div>
+	</div>
+</ul>
 
 <div id="right"></div>

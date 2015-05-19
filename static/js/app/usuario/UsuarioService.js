@@ -26,6 +26,19 @@ eventosModule.service('usuarioService', ['$q', '$http', function($q, $http) {
     //    return deferred.promise;
     };
 
+	this.VCredenciales = function(args) {
+        if(typeof args == 'undefined') args={};
+        return $http({
+          url: 'usuario/VCredenciales/'+args,
+          method: 'GET',
+          params: args
+        });
+    //    var res = {};
+    //    var deferred = $q.defer();
+    //    deferred.resolve(res);
+    //    return deferred.promise;
+    };
+
     this.AGenerarCredencial = function(args) {
         if(typeof args == 'undefined') args={};
         return $http({
@@ -42,7 +55,7 @@ eventosModule.service('usuarioService', ['$q', '$http', function($q, $http) {
     this.VEventoUsuario = function(args) {
         if(typeof args == 'undefined') args={};
         return $http({
-          url: 'usuario/VEventoUsuario',
+          url: 'usuario/VEventoUsuario/'+args,
           method: 'GET',
           params: args
         });

@@ -128,7 +128,7 @@ eventosModule.controller('VEventoUsuarioController',
 
     }]);
 
-eventosModule.controller('VCredencialesController/:idEvento', 
+eventosModule.controller('VCredencialesController', 
    ['$scope', '$location', '$route', '$routeParams', 'flash', 'loginService', 'usuarioService',
     function ($scope, $location, $route, $routeParams, flash, loginService, usuarioService) {
       $scope.msg = '';

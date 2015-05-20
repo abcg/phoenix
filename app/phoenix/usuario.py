@@ -143,6 +143,7 @@ def VEventoUsuario(idEvento):
     print "Ejecutando VEventoUsuario"
     evento = dbsession.query(Evento).get(idEvento)
     admin = dbsession.query(Actor).get(evento.administrador)
+    reserva = dbsession.query(Reserva).get((session['correo'],idEvento))
     
     res['id'] = evento.id
     res['nombreEvento'] = evento.nombre
@@ -152,6 +153,7 @@ def VEventoUsuario(idEvento):
     res['nroCupos'] = evento.total_cupos
     res['cuposDisponibles'] = evento.cupos_disponibles
     res['nombreAdmin'] = admin.nombre
+    res['inscrito'] = reserva is not None
 
     #Action code ends here
     return json.dumps(res)
@@ -164,19 +166,17 @@ def VInicioUsuario():
     if "actor" in session:
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
-    aux = dbsession.query(Evento).order_by(Evento.id.desc()).all()
+    eventos = dbsession.query(Evento).order_by(Evento.id.desc()).all()
+    res['eventos_no_reservados'] = []
+    res['eventos_reservados'] = []    
 	
-    res['eventos'] = []
-    for evento in aux :
-        res['eventos'].append({'id':evento.id, 'nombre':evento.nombre, 'fecha':evento.fecha, 'cupos_disponibles':evento.cupos_disponibles})
+    for evento in eventos :
+        reserva = dbsession.query(Reserva).get((session['correo'], evento.id))
+        if reserva is not None:
+            res['eventos_reservados'].append({ 'id' : evento.id, 'nombre' : evento.nombre, 'fecha' : evento.fecha, 'lugar' : evento.lugar })
+        else:
+            res['eventos_no_reservados'].append({'id':evento.id, 'nombre':evento.nombre, 'fecha':evento.fecha, 'cupos_disponibles':evento.cupos_disponibles})
         
-    reservas = dbsession.query(Reserva).filter(Reserva.actor_correo == session['correo'])
-    
-    res['eventos_inscritos'] = []    
-    for r in reservas:
-        e = dbsession.query(Evento).get(r.evento_id)
-        res['eventos_inscritos'].append({ 'id' : e.id, 'nombre' : e.nombre, 'fecha' : e.fecha, 'lugar' : e.lugar })
-
     #Action code ends here
     return json.dumps(res)
  

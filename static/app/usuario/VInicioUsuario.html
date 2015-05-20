@@ -37,7 +37,7 @@
 </br>
 
 <ul>
-	<div ng-repeat="evento in res.eventos">
+	<div ng-repeat="evento in eventos_no_reservados">
 		<div ng-click="VEventoUsuario0(evento.id)">
 			
 			<table align="center">
@@ -68,7 +68,7 @@
 </br>
 
 <ul>
-	<div ng-repeat="evento in res.eventos_inscritos">
+	<div ng-repeat="evento in eventos_reservados">
 		<div ng-click="VEventoUsuario0(evento.id)">
 			
 			<table align="center">

@@ -75,18 +75,28 @@ def AGenerarCredencial():
 @usuario.route('/usuario/AInscribirEvento')
 def AInscribirEvento():
     #GET parameter
-    evento = request.args['evento']
-    results = [{'label':'/VInicioUsuario', 'msg':[ur'Inscripcion OK']}, {'label':'/VEventoUsuario', 'msg':[ur'Inscripcion ERROR']}, ]
+    e_id = request.args['evento']
+    results = [{'label':'/VInicioUsuario', 'msg':[ur'La reserva se ha realizado con éxito.']},
+               {'label':'/VEventoUsuario', 'msg':[ur'Hubo un error al procesar la reserva.']},
+               {'label':'/VEventoUsuario', 'msg':[ur'Reserva sin efecto. No hay cupos disponibles para este evento.']},
+               {'label':'/VEventoUsuario', 'msg':[ur'Reserva sin efecto. Ud. ya había reservado un cupo para este evento.']},
+              ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
     usuario = session['correo']
-    reserva = dbsession.query(Reserva).get((usuario,evento))
+    evento  = dbsession.query(Evento).get(e_id)
+    reserva = dbsession.query(Reserva).get((usuario,e_id))
     
     if not reserva:
-        dbsession.add( Reserva(actor_correo=usuario, evento_id=int(evento), asistencia=0) )
-        dbsession.commit()
+        if evento.cupos_disponibles > 0:
+            evento.cupos_disponibles -= 1
+            dbsession.add( Reserva(actor_correo=usuario, evento_id=int(e_id), asistencia=0) )
+            dbsession.add(evento)
+            dbsession.commit()
+        else:
+            res = results[2]
     else:
-        res = results[1]
+        res = results[3]
     
     #Action code ends here
     if "actor" in res:

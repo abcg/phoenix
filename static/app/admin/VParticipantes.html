@@ -28,12 +28,30 @@
         </div>
     </div>
 </nav>
-            <ul>
-                <div ng-repeat="participante in participantes">
-                    <li>
-                        {{participante.nombre}} {{participante.correo}}
-                    </li>
-                </div>  
-            </ul>
+<table style="width:100%">
+    <tr>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th ng-show="cerrado">¿Asistió?</th>
+    </tr>
+</table>
+</br>
+    <div ng-repeat="participante in participantes">
+        <table style="width:100%">
+            <tr>
+                <td>{{participante.nombre}}</td>
+                <td>{{participante.correo}}</td>
+                <td ng-show="cerrado">
+                    <form>
+                        <input type=radio name="asistencia">Sí
+                        <input type=radio name="asistencia">No
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>  
+</br>
+<hr>
+<input type="submit" ng-show="cerrado" value="Guardar asistencia">
 
 <div id="right"></div>

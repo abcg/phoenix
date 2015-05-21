@@ -184,6 +184,9 @@ def VEvento(idEvento):
 
     e = dbsession.query(Evento).get(idEvento)
     a = dbsession.query(Actor).get(e.administrador)
+
+    fecha_evento = parseDate(e.fecha)
+    hoy = today()
     
     res['id'] = e.id
     res['nombreEvento'] = e.nombre
@@ -193,6 +196,7 @@ def VEvento(idEvento):
     res['nroCupos'] = e.total_cupos
     res['cuposDisponibles'] = e.cupos_disponibles
     res['nombreAdmin'] = a.nombre
+    res['abierto'] = fecha_evento >= hoy
 
     #Action code ends here
     return json.dumps(res)

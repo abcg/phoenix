@@ -4,6 +4,14 @@ from datetime import *
 from models import *
 admin = Blueprint('admin', __name__)
 
+def parseDate(date):
+    return datetime.strptime(date, '%Y-%m-%d').date()
+
+def today():
+    return datetime.now().date()
+
+def dateToString(date):
+    date.strftime('%Y-%m-%d')
 
 @admin.route('/admin/ADesconectarse')
 def ADesconectarse():
@@ -83,20 +91,24 @@ def AModificarEvento(idEvento):
     evento = dbsession.query(Evento).get(idEvento)
 
     nro_personas_inscritas = evento.total_cupos - evento.cupos_disponibles
-
-    evento.nombre = formulario['nombreEvento']
-    evento.descripcion = formulario['descripcion']
-    evento.fecha = formulario['fecha'] # CUIDADO QUE FALTA
-    evento.lugar = formulario['lugar']
-    evento.total_cupos = formulario['maxparticipantes']
-    evento.cupos_disponibles = evento.total_cupos - nro_personas_inscritas
+    fecha_evento = parseDate(formulario['fecha'])
+    hoy = today()
 
     if evento.cupos_disponibles < 0:
         # Faltan pruebas
         res = results[1]
         res['msg'].append('Actualmente hay %s persona(s) inscritas. El nuevo número de cupos no pueder ser inferior a %s.' % \
             (nro_personas_inscritas, nro_personas_inscritas))
+    elif fecha_evento < hoy:
+        res = results[1]
+        res['msg'].append('Fecha invalida')
     else:
+        evento.nombre = formulario['nombreEvento']
+        evento.descripcion = formulario['descripcion']
+        evento.fecha = formulario['fecha']
+        evento.lugar = formulario['lugar']
+        evento.total_cupos = formulario['maxparticipantes']
+        evento.cupos_disponibles = evento.total_cupos - nro_personas_inscritas
         dbsession.add(evento)
         dbsession.commit()
 
@@ -114,7 +126,10 @@ def AModificarEvento(idEvento):
 def ARegistrarEvento():
     #GET parameter
     formulario = request.get_json()
-    results = [{'label':'/VEvento', 'msg':[ur'Evento registrado']}, {'label':'/VRegistroEvento', 'msg':[ur'Evento no registrado']}, ]
+    results = [{'label':'/VEvento', 'msg':[ur'Evento registrado']},
+               {'label':'/VRegistroEvento', 'msg':[ur'Evento no registrado']},
+               {'label':'/VRegistroEvento', 'msg':[ur'Fecha de evento no válida']},
+              ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
     n = formulario['nombreEvento']
@@ -122,14 +137,18 @@ def ARegistrarEvento():
     f = formulario['fecha']
     l = formulario['lugar']
     c = formulario['maxparticipantes']
-	
-    evento = Evento(afiche= '', nombre=n, descripcion=d, fecha=f, lugar=l, total_cupos=c, cupos_disponibles=c, administrador=session['correo'])
+    
+    # Verificar la fecha
+    fecha_evento = parseDate(f)
+    hoy = today()
+    if fecha_evento < hoy:
+        res = results[2]
 
-    dbsession.add(evento)
-    dbsession.commit()
-    
-    res['label'] += '/' + str(evento.id)
-    
+    else:
+        evento = Evento(afiche= '', nombre=n, descripcion=d, fecha=f, lugar=l, total_cupos=c, cupos_disponibles=c, administrador=session['correo'])
+        dbsession.add(evento)
+        dbsession.commit()
+        res['label'] += '/' + str(evento.id)
 	
     #Action code ends here
     if "actor" in res:
@@ -186,11 +205,19 @@ def VInicioAdministrador():
     if "actor" in session:
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
-    aux = dbsession.query(Evento).filter(Evento.administrador==session['correo'])
+    eventos = dbsession.query(Evento).filter(Evento.administrador==session['correo'])
     
-    res['eventos'] = []
-    for evento in aux :
-        res['eventos'].append({'id':evento.id, 'nombre':evento.nombre, 'fecha':evento.fecha, 'cupos_disponibles':evento.cupos_disponibles})
+    res['eventos_abiertos'] = []
+    res['eventos_cerrados'] = []
+
+    hoy = today()
+    for evento in eventos :
+        fecha = parseDate(evento.fecha)
+
+        if fecha < hoy:
+            res['eventos_cerrados'].append({'id':evento.id, 'nombre':evento.nombre, 'fecha':evento.fecha, 'cupos_disponibles':evento.cupos_disponibles})
+        else:
+            res['eventos_abiertos'].append({'id':evento.id, 'nombre':evento.nombre, 'fecha':evento.fecha, 'cupos_disponibles':evento.cupos_disponibles})
 
     #Action code ends here
     return json.dumps(res)
@@ -228,6 +255,7 @@ def VParticipantes(idEvento):
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
     reservas = dbsession.query(Reserva).filter(Reserva.evento_id==idEvento)
+    evento   = dbsession.query(Evento).get(idEvento)
 
     participantes = []
 
@@ -236,6 +264,12 @@ def VParticipantes(idEvento):
         participantes.append({ 'correo' : participante.correo, 'nombre' : participante.nombre })
 
     res['participantes'] = participantes
+    res['id'] = idEvento
+
+    hoy = today()
+    fecha_evento = parseDate(evento.fecha)
+
+    res['cerrado'] = fecha_evento < hoy
 
     #Action code ends here
     return json.dumps(res)
@@ -248,7 +282,9 @@ def VRegistroEvento():
     if "actor" in session:
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
+    hoy = today()
 
+    res['hoy'] = dateToString(hoy)
 
     #Action code ends here
     return json.dumps(res)

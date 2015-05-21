@@ -12,16 +12,15 @@
         </div>
         <div class="collapse navbar-collapse" id="contenido-plegable">
             <ul class="nav navbar-nav navbar-left">
+  <li><a ng-click="VEvento0(id)">
+  Regresar</a></li>
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-left">
 <li><a ng-click="ADesconectarse2()">
   Desconectarse</a></li>
 
-            </ul>
-            <ul>
-                <div ng-repeat="participante in participantes">
-                    <li>
-                        {{nombre + " " + correo}}
-                    </li>
-                </div>  
             </ul>
             <ul class="nav navbar-nav navbar-right">
 <li class="navbar-text" ng-show="usuario.nombre" ng-bind="usuario.nombre"></li>
@@ -29,14 +28,12 @@
         </div>
     </div>
 </nav>
-
-            </tr>
-        </table>
-
-<hr />            </tr>
-        </table>
-
-<hr />
-
+            <ul>
+                <div ng-repeat="participante in participantes">
+                    <li>
+                        {{participante.nombre}} {{participante.correo}}
+                    </li>
+                </div>  
+            </ul>
 
 <div id="right"></div>

@@ -8,7 +8,7 @@ eventosModule.config(function ($routeProvider) {
             }).when('/VAficheUsuario', {
                 controller: 'VAficheUsuarioController',
                 templateUrl: 'app/usuario/VAficheUsuario.html'
-            }).when('/VCertificadoUsuario', {
+            }).when('/VCertificadoUsuario/:idEvento', {
                 controller: 'VCertificadoUsuarioController',
                 templateUrl: 'app/usuario/VCertificadoUsuario.html'
             }).when('/VCredenciales/:idEvento', {
@@ -122,8 +122,8 @@ eventosModule.controller('VEventoUsuarioController',
               $location.path(label);
           }
         });};
-      $scope.VCertificadoUsuario5 = function() {
-        $location.path('/VCertificadoUsuario');
+      $scope.VCertificadoUsuario5 = function(args) {
+        $location.path('/VCertificadoUsuario/'+args);
       };
 
     }]);
@@ -178,10 +178,10 @@ eventosModule.controller('VAficheUsuarioController',
 
     }]);
 eventosModule.controller('VCertificadoUsuarioController', 
-   ['$scope', '$location', '$route', 'flash', 'loginService', 'usuarioService',
-    function ($scope, $location, $route, flash, loginService, usuarioService) {
+   ['$scope', '$location', '$route', '$routeParams', 'flash', 'loginService', 'usuarioService',
+    function ($scope, $location, $route, $routeParams, flash, loginService, usuarioService) {
       $scope.msg = '';
-      usuarioService.VCertificadoUsuario().then(function (object) {
+      usuarioService.VCertificadoUsuario($routeParams.idEvento).then(function (object) {
         $scope.res = object.data;
         for (var key in object.data) {
             $scope[key] = object.data[key];
@@ -190,8 +190,21 @@ eventosModule.controller('VCertificadoUsuarioController',
             $location.path('/');
         }
       });
-      $scope.VEventoUsuario0 = function() {
-        $location.path('/VEventoUsuario');
+      $scope.VEventoUsuario0 = function(args) {
+        $location.path('/VEventoUsuario/'+args);
       };
+      
+      $scope.ADesconectarseUsuario10 = function() {
+          
+        usuarioService.ADesconectarseUsuario().then(function (object) {
+          var msg = object.data["msg"];
+          if (msg) flash(msg);
+          var label = object.data["label"];
+          if (label == '/VEventoUsuario') {
+              $route.reload();
+          } else {
+              $location.path(label);
+          }
+        });};
 
     }]);

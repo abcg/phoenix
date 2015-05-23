@@ -107,7 +107,7 @@ eventosModule.service('usuarioService', ['$q', '$http', function($q, $http) {
     this.VCertificadoUsuario = function(args) {
         if(typeof args == 'undefined') args={};
         return $http({
-          url: 'usuario/VCertificadoUsuario',
+          url: 'usuario/VCertificadoUsuario/'+args,
           method: 'GET',
           params: args
         });

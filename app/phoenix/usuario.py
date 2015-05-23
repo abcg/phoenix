@@ -121,13 +121,16 @@ def VAficheUsuario():
 
 
 
-@usuario.route('/usuario/VCertificadoUsuario')
-def VCertificadoUsuario():
+@usuario.route('/usuario/VCertificadoUsuario/<idEvento>')
+def VCertificadoUsuario(idEvento):
     res = {}
     if "actor" in session:
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
-
+    usuario = session['correo']
+    actor = dbsession.query(Actor).get(usuario)
+    e = dbsession.query(Evento).get(idEvento)
+    res = { 'id' : e.id, 'nombre' : e.nombre, 'descripcion' : e.descripcion, 'fecha' : e.fecha, 'lugar' : e.lugar, 'participante' : actor.nombre }
 
     #Action code ends here
     return json.dumps(res)
@@ -188,7 +191,7 @@ def VCredenciales(idEvento):
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
     e = dbsession.query(Evento).get(idEvento)
-    res = { 'id' : e.id, 'nombre' : e.nombre, 'fecha' : e.fecha, 'lugar' : e.lugar }
+    res = { 'id' : e.id, 'nombre' : e.nombre, 'descripcion' : e.descripcion,'fecha' : e.fecha, 'lugar' : e.lugar }
 
     #Action code ends here
     return json.dumps(res)

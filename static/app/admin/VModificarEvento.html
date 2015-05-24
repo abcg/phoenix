@@ -29,7 +29,7 @@
 </nav>
 
     <form name="modificacionEventoFormForm"
-          ng-submit="AModificarEvento0(modificacionEventoFormForm.$valid, id)" novalidate>
+          ng-submit="AModificarEvento0(modificacionEventoFormForm.$valid, id)" enctype=multipart/form-data novalidate>
             <div class="form-group"
                  ng-class="{ 'has-error' :  modificacionEventoFormSubmitted && modificacionEventoFormForm.nombreEvento.$invalid &&
                                             modificacionEventoFormForm.nombreEvento.$pristine &&
@@ -71,6 +71,11 @@
                            ng-model="modificacionEventoForm.fecha"
                            placeholder="fecha" required/>
                                <p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.fecha.$invalid" class="help-block">Error en campo 'Fecha'</p>
+            </div>
+            <div class="form-group"
+                    <label for="modificacionEventoForm_afiche">Afiche</label>
+                    <input id="modificacionEventoForm_afiche" type="file" name="afiche"
+                           ng-model="modificacionEventoForm.afiche" placeholder="Afiche" />
             </div>
             <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted &&
                                                                                 modificacionEventoFormForm.lugar.$invalid &&

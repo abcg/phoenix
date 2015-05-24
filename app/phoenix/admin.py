@@ -42,14 +42,18 @@ def AEliminarEvento():
     #Action code goes here, res should be a list with a label and a message
 
     print "Ejecutando rutina AEliminarEvento con parametro %s" % evento
+    e = dbsession.query(Evento).get(evento)
+    hoy = today()
+    fecha_evento = parseDate(e.fecha)
 
-    # Primero, eliminar las reservas asociadas al evento
-    dbsession.query(Reserva).filter(Reserva.evento_id==evento).delete(synchronize_session=False)
-
-    # Finalmente, eliminar el evento
-    dbsession.query(Evento).filter(Evento.id==evento).delete(synchronize_session=False)
-
-    dbsession.commit()   
+    if fecha_evento < hoy:
+        res = results[1]
+    else:
+        # Primero, eliminar las reservas asociadas al evento
+        dbsession.query(Reserva).filter(Reserva.evento_id==evento).delete(synchronize_session=False)
+        # Finalmente, eliminar el evento
+        dbsession.query(Evento).filter(Evento.id==evento).delete(synchronize_session=False)
+        dbsession.commit()   
 
     #Action code ends here
     if "actor" in res:

@@ -1,6 +1,7 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
+			<!--<div style="text-align: left"><img alt="Logo" src="img/logophoenix.png" height="50" /></div>-->
             <button type="button" class="navbar-toggle" 
                     data-toggle="collapse" 
                     data-target="#contenido-plegable">
@@ -21,16 +22,22 @@
 </nav>
 
     <form name="loginFormForm" ng-submit="AIdentificar0(loginFormForm.$valid)" novalidate>
-            <div class="form-group" ng-class="{ 'has-error' :  loginFormSubmitted && loginFormForm.correo.$invalid && loginFormForm.correo.$pristine && loginFormSubmitted}"><label for="loginForm_correo">correo</label><input id="loginForm_correo" type="email" name="correo" class="form-control" ng-model="loginForm.correo" placeholder="correo" required/><p ng-show="loginFormSubmitted && loginFormForm.correo.$invalid" class="help-block">Error en campo correo.</p></div>
-            <div class="form-group" ng-class="{ 'has-error' :  loginFormSubmitted && loginFormForm.clave.$invalid && loginFormForm.clave.$pristine && loginFormSubmitted}"><label for="loginForm_clave">clave</label><input id="loginForm_clave" type="password" name="clave" class="form-control" ng-model="loginForm.clave" placeholder="clave" required/><p ng-show="loginFormSubmitted && loginFormForm.clave.$invalid" class="help-block">Error en campo clave.</p></div>
+            <div class="form-group" ng-class="{ 'has-error' :  loginFormSubmitted && loginFormForm.correo.$invalid && loginFormForm.correo.$pristine && loginFormSubmitted}"><label for="loginForm_correo">Correo</label><input id="loginForm_correo" type="email" name="correo" class="form-control" ng-model="loginForm.correo" placeholder="Correo" required/><p ng-show="loginFormSubmitted && loginFormForm.correo.$invalid" class="help-block">Error en campo correo.</p></div>
+            <div class="form-group" ng-class="{ 'has-error' :  loginFormSubmitted && loginFormForm.clave.$invalid && loginFormForm.clave.$pristine && loginFormSubmitted}"><label for="loginForm_clave">Clave</label><input id="loginForm_clave" type="password" name="clave" class="form-control" ng-model="loginForm.clave" placeholder="Clave" required/><p ng-show="loginFormSubmitted && loginFormForm.clave.$invalid" class="help-block">Error en campo clave.</p></div>
         <button type="submit" class="btn btn-perso btn-lg btn-block">
-            <span class="glyphicon glyphicon-flash"></span>Identificar usuario
+            Iniciar Sesión
         </button>
+        </br>
+        <hr>
+        <div class="col-xs-12 text-inverse" style="text-align: center;">
+			<b>Si eres un nuevo usuario y no estás registrado dentro de la aplicación:</b>
+        </div>
+        </br></br>
+        <button type="button" ng-click="VRegistroUsuario1()" class="btn btn-perso btn-lg btn-block">
+            Registrarse
+        </button>
+        <hr>
     </form>
-    <hr />            </tr>
-        </table>
-
-<hr />
 
 
 <div id="right"></div>

@@ -13,11 +13,11 @@ CREATE TABLE evento (
   descripcion       text not null,
   afiche            text not null,
   lugar             text not null,
-  fecha             text not null,
+  fecha             integer not null,
   total_cupos       integer not null,
   cupos_disponibles integer not null,
-  administrador     integer not null,
-  FOREIGN KEY(administrador) REFERENCES actor(nombre)
+  administrador     text not null,
+  FOREIGN KEY(administrador) REFERENCES actor(correo)
 );
 
 DROP TABLE IF EXISTS certificado;
@@ -26,18 +26,18 @@ CREATE TABLE certificado (
   fecha_de_generacion text not null,
 
   -- reserva asociada
-  actor_nombre text not null,
+  actor_correo text not null,
   evento_id  text not null,
-  FOREIGN KEY(actor_nombre, evento_id) REFERENCES reserva(actor_nombre, evento_id)
+  FOREIGN KEY(actor_correo, evento_id) REFERENCES reserva(actor_correo, evento_id)
 );
 
 DROP TABLE IF EXISTS reserva;
 CREATE TABLE reserva (
-  actor_nombre text not null,
+  actor_correo text not null,
   evento_id  text not null,
   asistencia integer,
-  PRIMARY KEY (actor_nombre, evento_id),
-  FOREIGN KEY(actor_nombre) REFERENCES actor(nombre),
+  PRIMARY KEY (actor_correo, evento_id),
+  FOREIGN KEY(actor_correo) REFERENCES actor(correo),
   FOREIGN KEY(evento_id)     REFERENCES evento(id)
 );
 

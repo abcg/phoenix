@@ -18,40 +18,51 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-left">
-<li><a ng-click="ADesconectarse2()">
-  Desconectarse</a></li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li><a ng-click="ADesconectarse2()">
+  Desconectarse</a></li>
 <li class="navbar-text" ng-show="usuario.nombre" ng-bind="usuario.nombre"></li>
             </ul>
         </div>
     </div>
 </nav>
-<table style="width:100%">
-    <tr>
-        <th>Nombre</th>
-        <th>Correo</th>
-        <th ng-show="cerrado">¿Asistió?</th>
-    </tr>
-</table>
+
+
+<div style="background-color: #000066">
+	<table align="center">
+		<tr>
+			<td style="width: 40px;"></td>
+			<td style="width: 300px; text-align: left; color: #FFFFFF;"><b>Nombre de Partipante</b></td><td></td>
+			<td style="width: 300px; text-align: center; color: #FFFFFF;"><b>Correo</b></td><td></td>
+            <td style="width: 300px; text-align: center; color: #FFFFFF;" ng-show="cerrado"><b>¿Asistió?</b></td><td></td>
+		</tr>
+	</table>
+</div>
 </br>
+
+
     <div ng-repeat="participante in participantes">
-        <table style="width:100%">
+        <table align="center">
             <tr>
-                <td>{{participante.nombre}}</td>
-                <td>{{participante.correo}}</td>
-                <td ng-show="cerrado">
+                <td style="width: 50px;"></td>
+                <td style="width: 300px; text-align: left;">{{participante.nombre}}</td><td></td>
+                <td style="width: 300px; text-align: center;">{{participante.correo}}</td><td></td>
+                <td style="width: 300px; text-align: center;" ng-show="cerrado">
                     <form>
                         <input type=radio name="asistencia">Sí
+                        &nbsp;&nbsp;
                         <input type=radio name="asistencia">No
                     </form>
-                </td>
+                </td><td></td>
             </tr>
         </table>
     </div>  
-</br>
 <hr>
-<input type="submit" ng-show="cerrado" value="Guardar asistencia">
+
+<div align="center">
+    <input type="submit" ng-show="cerrado" value="Guardar Asistencia">
+</div>
 
 <div id="right"></div>

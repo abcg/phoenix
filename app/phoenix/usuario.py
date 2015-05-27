@@ -157,6 +157,7 @@ def VEventoUsuario(idEvento):
     res['cuposDisponibles'] = evento.cupos_disponibles
     res['nombreAdmin'] = admin.nombre
     res['inscrito'] = reserva is not None
+    res['asistio'] = reserva.asistencia is 1
 
     #Action code ends here
     return json.dumps(res)

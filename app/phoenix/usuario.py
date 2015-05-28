@@ -162,8 +162,10 @@ def VEventoUsuario(idEvento):
     res['nombreAdmin'] = admin.nombre
 
     res['inscrito'] = reserva is not None
+    res['asistio'] = reserva.asistencia is 1
     res['evento_realizado'] = fecha_evento < hoy
-    res['evento_cerrado']   = False
+    res['evento_cerrado'] = False       # evento_cerrado == evento_realizado && info de la asistencia fue cargada
+    res['certificado_generado'] = False # Mientras
 
     #Action code ends here
     return json.dumps(res)

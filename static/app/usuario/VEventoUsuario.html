@@ -46,7 +46,10 @@
         <a ng-click="VCredenciales9(id)">Ver Credenciales</a>
     </div>
     </br>
-    <div align="center" ng-show="evento_cerrado && inscrito">
+    <div align="center" ng-show="evento_cerrado && inscrito && asistio && ! certificado_generado">
+        <a ng-click="">Generar Certificado de Asistencia</a>
+    </div>
+    <div align="center" ng-show="certificado_generado">
         <a ng-click="VCertificadoUsuario5(id)">Ver Certificado de Asistencia</a>
     </div>
     

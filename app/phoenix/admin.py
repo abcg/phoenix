@@ -2,16 +2,9 @@
 from flask import request, session, Blueprint, json
 from datetime import *
 from models import *
+from dateManager import *
+
 admin = Blueprint('admin', __name__)
-
-def parseDate(date):
-    return datetime.strptime(date, '%Y-%m-%d').date()
-
-def today():
-    return datetime.now().date()
-
-def dateToString(date):
-    date.strftime('%Y-%m-%d')
 
 @admin.route('/admin/ADesconectarse')
 def ADesconectarse():

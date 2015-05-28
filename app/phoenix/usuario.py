@@ -2,6 +2,8 @@
 from flask import request, session, Blueprint, json
 from datetime import *
 from models import *
+from dateManager import *
+
 usuario = Blueprint('usuario', __name__)
 
 
@@ -143,10 +145,12 @@ def VEventoUsuario(idEvento):
     if "actor" in session:
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
-    print "Ejecutando VEventoUsuario"
     evento = dbsession.query(Evento).get(idEvento)
     admin = dbsession.query(Actor).get(evento.administrador)
     reserva = dbsession.query(Reserva).get((session['correo'],idEvento))
+
+    hoy = today()
+    fecha_evento = parseDate(evento.fecha)
     
     res['id'] = evento.id
     res['nombreEvento'] = evento.nombre
@@ -156,7 +160,10 @@ def VEventoUsuario(idEvento):
     res['nroCupos'] = evento.total_cupos
     res['cuposDisponibles'] = evento.cupos_disponibles
     res['nombreAdmin'] = admin.nombre
+
     res['inscrito'] = reserva is not None
+    res['evento_realizado'] = fecha_evento < hoy
+    res['evento_cerrado']   = False
 
     #Action code ends here
     return json.dumps(res)

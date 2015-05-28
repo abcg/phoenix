@@ -14,7 +14,7 @@
             <ul class="nav navbar-nav navbar-left">
 <li><a ng-click="VInicioUsuario1()">
   Regresar</a></li>
-<li><a ng-click="confirmarRegistro(id)">
+<li ng-hide="evento_realizado"><a ng-click="confirmarRegistro(id)">
   Inscribirse en Evento</a></li>
 <li><a ng-click="VAficheUsuario1()"
        ng-show="actor=='actor_usuario' || false">
@@ -46,7 +46,7 @@
         <a ng-click="VCredenciales9(id)">Ver Credenciales</a>
     </div>
     </br>
-    <div align="center">
+    <div align="center" ng-show="evento_cerrado && inscrito">
         <a ng-click="VCertificadoUsuario5(id)">Ver Certificado de Asistencia</a>
     </div>
     

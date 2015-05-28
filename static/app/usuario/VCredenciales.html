@@ -1,0 +1,38 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" 
+                    data-toggle="collapse" 
+                    data-target="#contenido-plegable">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="navbar-brand" ></span>
+        </div>
+        <div class="collapse navbar-collapse" id="contenido-plegable">
+            <ul class="nav navbar-nav navbar-left">
+<li><a ng-click="VEventoUsuario9(id)">
+  Regresar</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+				<li><a ng-click="ADesconectarseUsuario9()">
+  Desconectarse</a></li>
+<li class="navbar-text" ng-show="usuario.nombre" ng-bind="usuario.nombre"></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    </br><div align="center"><b>Usted ha reservado su cupo en el siguiente evento:</b></div>
+
+	</br><h1 align="center">{{nombre}}</h1>
+    <p align="center">{{descripcion}}</p></br>
+	
+	<div align="center" style="margin-left: 400px; margin-right: 400px;">
+		<p>A ser realizado el día <b>{{fecha}}</b></p>
+        <p>en <b>{{lugar}}</b></p>
+	</div>
+
+
+<div id="right"></div>

@@ -142,7 +142,7 @@ def ARegistrarEvento():
         res = results[2]
 
     else:
-        evento = Evento(afiche= '', nombre=n, descripcion=d, fecha=f, lugar=l, total_cupos=c, cupos_disponibles=c, administrador=session['correo'])
+        evento = Evento(afiche= '', nombre=n, descripcion=d, fecha=f, lugar=l, total_cupos=c, cupos_disponibles=c, administrador=session['correo'], cerrado=0)
         dbsession.add(evento)
         dbsession.commit()
         res['label'] += '/' + str(evento.id)

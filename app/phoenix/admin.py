@@ -58,14 +58,23 @@ def AEliminarEvento():
 
 
 
-@admin.route('/admin/AGuardarAsistencia')
+@admin.route('/admin/AGuardarAsistencia', methods=['POST'])
 def AGuardarAsistencia():
     #GET parameter
-    participantes = request.args['participantes']
+    asistencia_info = request.get_json()
     results = [{'label':'/VParticipantes', 'msg':[ur'Registro exitoso']}, {'label':'/VParticipantes', 'msg':[ur'Registro no exitoso']}, ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
+    evento = dbsession.query(Evento).get(asistencia_info['evento'])
 
+    for correo in asistencia_info['asistencia'].keys():
+        reserva = dbsession.query(Reserva).get((correo, evento.id))
+        reserva.asistencia = 1
+        dbsession.add(reserva)
+
+    evento.cerrado = 1
+    dbsession.add(evento)
+    dbsession.commit()
 
     #Action code ends here
     if "actor" in res:
@@ -269,8 +278,8 @@ def VParticipantes(idEvento):
 
     hoy = today()
     fecha_evento = parseDate(evento.fecha)
-
-    res['cerrado'] = fecha_evento < hoy
+    res['realizado'] = fecha_evento < hoy
+    res['cerrado'] = evento.cerrado
 
     #Action code ends here
     return json.dumps(res)

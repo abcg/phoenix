@@ -65,12 +65,11 @@ eventosModule.service('adminService', ['$q', '$http', function($q, $http) {
     //    deferred.resolve(res);
     //    return deferred.promise;
     };
-    this.AGuardarAsistencia = function(args) {
-        if(typeof args == 'undefined') args={};
+    this.AGuardarAsistencia = function(guardarAsistenciaInfo) {
         return $http({
           url: 'admin/AGuardarAsistencia',
-          method: 'GET',
-          params: args
+          data: guardarAsistenciaInfo,
+          method: 'POST',
         });
     //    var labels = ["/VParticipantes", "/VParticipantes", ];
     //    var res = labels[0];

@@ -177,6 +177,7 @@ eventosModule.controller('VParticipantesController',
    ['$scope', '$location', '$route', '$routeParams', 'flash', 'adminService', 'loginService',
     function ($scope, $location, $route, $routeParams, flash, adminService, loginService) {
       $scope.msg = '';
+      $scope.guardarAsistenciaInfo = { 'evento' : $routeParams.idEvento, 'asistencia' : {} };
       adminService.VParticipantes($routeParams.idEvento).then(function (object) {
         $scope.res = object.data;
         for (var key in object.data) {
@@ -189,9 +190,8 @@ eventosModule.controller('VParticipantesController',
       $scope.VEvento0 = function(idEvento) {
         $location.path('/VEvento/'+idEvento);
       };
-      $scope.AGuardarAsistencia1 = function(participantes) {
-          
-        adminService.AGuardarAsistencia({"participantes":((typeof participantes === 'object')?JSON.stringify(participantes):participantes)}).then(function (object) {
+      $scope.AGuardarAsistencia1 = function() {
+        adminService.AGuardarAsistencia($scope.guardarAsistenciaInfo).then(function (object) {
           var msg = object.data["msg"];
           if (msg) flash(msg);
           var label = object.data["label"];

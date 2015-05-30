@@ -61,6 +61,9 @@ eventosModule.controller('VRegistroUsuarioController',
             $location.path('/');
         }
       });
+      $scope.VPortada0 = function() {
+        $location.path('/VPortada');
+      };
       $scope.registroUsuarioFormSubmitted = false;
       $scope.ARegistrarUsuario0 = function(isValid) {
         $scope.registroUsuarioFormSubmitted = true;

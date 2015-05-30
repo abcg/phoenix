@@ -12,24 +12,54 @@
         </div>
         <div class="collapse navbar-collapse" id="contenido-plegable">
             <ul class="nav navbar-nav navbar-left">
-<li><a ng-click="ADesconectarse2()">
-  Desconectarse</a></li>
+  <li><a ng-click="VEvento0(id)">
+  Regresar</a></li>
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-left">
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li><a ng-click="ADesconectarse2()">
+  Desconectarse</a></li>
 <li class="navbar-text" ng-show="usuario.nombre" ng-bind="usuario.nombre"></li>
             </ul>
         </div>
     </div>
 </nav>
 
+
+<div style="background-color: #000066">
+	<table align="center">
+		<tr>
+			<td style="width: 40px;"></td>
+			<td style="width: 300px; text-align: left; color: #FFFFFF;"><b>Nombre de Partipante</b></td><td></td>
+			<td style="width: 300px; text-align: center; color: #FFFFFF;"><b>Correo</b></td><td></td>
+            <td style="width: 300px; text-align: center; color: #FFFFFF;" ng-show="realizado && !cerrado"><b>¿Asistió?</b></td><td></td>
+		</tr>
+	</table>
+</div>
+</br>
+
+<form ng-submit=AGuardarAsistencia1()>
+    <div ng-repeat="participante in participantes">
+        <table align="center">
+            <tr>
+                <td style="width: 50px;"></td>
+                <td style="width: 300px; text-align: left;">{{participante.nombre}}</td><td></td>
+                <td style="width: 300px; text-align: center;">{{participante.correo}}</td><td></td>
+                <td style="width: 300px; text-align: center;" ng-show="realizado && !cerrado">
+                        <input type="checkbox" name="asistencia" ng-model="guardarAsistenciaInfo['asistencia'][participante.correo]">
+                </td><td></td>
             </tr>
         </table>
+    </div>  
+<hr>
 
-<hr />            </tr>
-        </table>
-
-<hr />
-
+<div align="center">
+    <input type="submit" ng-show="realizado && !cerrado" value="Guardar Asistencia">
+</div>
+</form>
 
 <div id="right"></div>

@@ -13,10 +13,11 @@ CREATE TABLE evento (
   descripcion       text not null,
   afiche            text not null,
   lugar             text not null,
-  fecha             integer not null,
+  fecha             text not null,
   total_cupos       integer not null,
   cupos_disponibles integer not null,
   administrador     text not null,
+  cerrado           integer not null,
   FOREIGN KEY(administrador) REFERENCES actor(correo)
 );
 

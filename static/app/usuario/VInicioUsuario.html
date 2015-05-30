@@ -12,21 +12,76 @@
         </div>
         <div class="collapse navbar-collapse" id="contenido-plegable">
             <ul class="nav navbar-nav navbar-left">
-<li><a ng-click="ADesconectarseUsuario1()">
-  Desconectarse</a></li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
+				<li><a ng-click="ADesconectarseUsuario1()">
+  Desconectarse</a></li>
 <li class="navbar-text" ng-show="usuario.nombre" ng-bind="usuario.nombre"></li>
             </ul>
         </div>
     </div>
 </nav>
 
-            </tr>
-        </table>
+<h1 align="center">Nuevos Eventos</h1>
+<div style="background-color: #000066">
+	<table align="center">
+		<tr>
+			<td style="width: 40px;"></td>
+			<td style="width: 300px; text-align: center; color: #FFFFFF;"><b>Nombre del Evento</b></td><td></td>
+			<td style="width: 300px; text-align: center; color: #FFFFFF;"><b>Fecha</b></td><td></td>
+			<td style="width: 300px; text-align: center; color: #FFFFFF;"><b>Cupos Disponibles</b></td>
+		</tr>
+	</table>
+</div>
+</br>
 
-<hr />
+<ul>
+	<div ng-repeat="evento in eventos_no_reservados">
+		<div ng-click="VEventoUsuario0(evento.id)">
+			
+			<table align="center">
+				<tr>
+					<td style="width: 300px; text-align: center;"><b>{{evento.nombre}}</b></td><td></td>
+					<td style="width: 300px; text-align: center;">{{evento.fecha}}</td><td></td>
+					<td style="width: 300px; text-align: center;">{{evento.cupos_disponibles}}</td>
+				</tr>
+			</table>
+			<hr />
+			
+		</div>
+	</div>
+</ul>
+</br>
 
+<h1 align="center">Mis Eventos Reservados</h1>
+<div style="background-color: #000066">
+	<table align="center">
+		<tr>
+			<td style="width: 40px;"></td>
+			<td style="width: 300px; text-align: center; color: #FFFFFF;"><b>Nombre del Evento</b></td><td></td>
+			<td style="width: 300px; text-align: center; color: #FFFFFF;"><b>Fecha</b></td><td></td>
+			<td style="width: 300px; text-align: center; color: #FFFFFF;"><b>Lugar</b></td>
+		</tr>
+	</table>
+</div>
+</br>
+
+<ul>
+	<div ng-repeat="evento in eventos_reservados">
+		<div ng-click="VEventoUsuario0(evento.id)">
+			
+			<table align="center">
+				<tr>
+					<td style="width: 300px; text-align: center;"><b>{{evento.nombre}}</b></td><td></td>
+					<td style="width: 300px; text-align: center;">{{evento.fecha}}</td><td></td>
+					<td style="width: 300px; text-align: center;">{{evento.lugar}}</td>
+				</tr>
+			</table>
+			<hr />
+			
+		</div>
+	</div>
+</ul>
 
 <div id="right"></div>

@@ -12,36 +12,26 @@
         </div>
         <div class="collapse navbar-collapse" id="contenido-plegable">
             <ul class="nav navbar-nav navbar-left">
-  <li><a ng-click="VInicioAdministrador1()">
+<li><a ng-click="VEventoUsuario9(id)">
   Regresar</a></li>
-
             </ul>
             <ul class="nav navbar-nav navbar-right">
-<li><a ng-click="ADesconectarse4()">
+				<li><a ng-click="ADesconectarseUsuario9()">
   Desconectarse</a></li>
 <li class="navbar-text" ng-show="usuario.nombre" ng-bind="usuario.nombre"></li>
             </ul>
         </div>
-       
     </div>
 </nav>
 
-	<h1 align="center">{{nombreEvento}}</h1>
-	<p align="center">{{nombreAdmin}}</p></br>
+    </br><div align="center"><b>Usted ha reservado su cupo en el siguiente evento:</b></div>
+
+	</br><h1 align="center">{{nombre}}</h1>
+    <p align="center">{{descripcion}}</p></br>
 	
-	<div style="margin-left: 400px; margin-right: 400px;">
-		<p><b>Fecha:</b> {{fecha}}</p>
-		<p><b>Lugar:</b> {{lugar}}</p>
-		<p><b>Descripción:</b> {{descripcion}}</p>
-		
-		</br><p><b>Máx. Participantes:</b> {{nroCupos}}</p>
-		<p><b>Cupos disponibles:</b> {{cuposDisponibles}}</p>
-	</div>
-	
-	<div align="center">
-		</br><a ng-click="VParticipantes2(id)">Ver Participantes</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a ng-click="VModificarEvento1(id)" ng-show="abierto">Modificar Evento</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a ng-click="verificarEliminacion(id)" ng-show="abierto">Eliminar Evento</a>
+	<div align="center" style="margin-left: 400px; margin-right: 400px;">
+		<p>A ser realizado el día <b>{{fecha}}</b></p>
+        <p>en <b>{{lugar}}</b></p>
 	</div>
 
 

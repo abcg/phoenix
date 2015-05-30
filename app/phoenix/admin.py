@@ -222,11 +222,11 @@ def VInicioAdministrador():
     hoy = today()
     for evento in eventos :
         fecha = parseDate(evento.fecha)
-
+        info = {'id':evento.id, 'nombre':evento.nombre, 'fecha':evento.fecha, 'cupos_disponibles':evento.cupos_disponibles}
         if fecha < hoy:
-            res['eventos_cerrados'].append({'id':evento.id, 'nombre':evento.nombre, 'fecha':evento.fecha, 'cupos_disponibles':evento.cupos_disponibles})
+            res['eventos_cerrados'].append(info)
         else:
-            res['eventos_abiertos'].append({'id':evento.id, 'nombre':evento.nombre, 'fecha':evento.fecha, 'cupos_disponibles':evento.cupos_disponibles})
+            res['eventos_abiertos'].append(info)
 
     #Action code ends here
     return json.dumps(res)
@@ -289,9 +289,6 @@ def VRegistroEvento():
     if "actor" in session:
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
-    hoy = today()
-
-    res['hoy'] = dateToString(hoy)
 
     #Action code ends here
     return json.dumps(res)

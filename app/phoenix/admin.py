@@ -34,7 +34,6 @@ def AEliminarEvento():
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
 
-    print "Ejecutando rutina AEliminarEvento con parametro %s" % evento
     e = dbsession.query(Evento).get(evento)
     hoy = today()
     fecha_evento = parseDate(e.fecha)
@@ -100,10 +99,10 @@ def AModificarEvento(idEvento):
     fecha_evento = parseDate(formulario['fecha'])
     hoy = today()
 
-    if evento.cupos_disponibles < 0:
+    if nro_personas_inscritas > formulario['maxparticipantes']:
         # Faltan pruebas
         res = results[1]
-        res['msg'].append('Actualmente hay %s persona(s) inscritas. El nuevo número de cupos no pueder ser inferior a %s.' % \
+        res['msg'].append('Actualmente hay %s persona(s) inscrita(s). El nuevo número de cupos no pueder ser inferior a %s.' % \
             (nro_personas_inscritas, nro_personas_inscritas))
     elif fecha_evento < hoy:
         res = results[1]
@@ -236,7 +235,6 @@ def VInicioAdministrador():
 
 @admin.route('/admin/VModificarEvento/<idEvento>')
 def VModificarEvento(idEvento):
-    print "Entrando en rutina VModificarEvento con argumento %s" % idEvento
     res = {}
     if "actor" in session:
         res['actor']=session['actor']

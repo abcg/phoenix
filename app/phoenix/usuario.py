@@ -30,16 +30,16 @@ def ADesconectarseUsuario():
 @usuario.route('/usuario/AGenerarCertificado')
 def AGenerarCertificado():
     #GET parameter
-    evento = request.get_json()
+    evento = request.args['evento']
     results = [{'label':'/VEventoUsuario', 'msg':[ur'Generar certificado']}, {'label':'/VEventoUsuario', 'msg':[ur'Usted no asistio a este evento']} ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
     usuario = session['correo']
     reserva = dbsession.query(Reserva).get((usuario,evento))
 
-    if reserva.asistencia:
+    if reserva and reserva.asistencia:
        fecha_actual = str(datetime.now())
-       certificado = Certificado(fecha_actual,usuario,evento)
+       certificado = Certificado(fecha_de_generacion=fecha_actual,actor_correo=usuario,evento_id=evento)
        dbsession.add(certificado)
        dbsession.commit()
     else:
@@ -164,7 +164,7 @@ def VEventoUsuario(idEvento):
     res['inscrito'] = reserva is not None
     res['asistio'] = res['inscrito'] and reserva.asistencia is 1
     res['evento_realizado'] = fecha_evento < hoy
-    res['evento_cerrado'] = False       # evento_cerrado == evento_realizado && info de la asistencia fue cargada
+    res['evento_cerrado'] = evento.cerrado
     res['certificado_generado'] = dbsession.query(Certificado).filter(Certificado.actor_correo==session['correo'], Certificado.evento_id==evento.id).count()
 
     #Action code ends here

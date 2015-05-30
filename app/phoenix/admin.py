@@ -242,14 +242,13 @@ def VModificarEvento(idEvento):
 
     evento = dbsession.query(Evento).get(idEvento)
 
-    res = { 'id': evento.id,
-            'nombre': evento.nombre,
-            'descripcion': evento.descripcion,
-            'lugar': evento.lugar,
-            'fecha': evento.fecha,
-            'total_cupos':evento.total_cupos,
-            'cupos_disponibles':evento.cupos_disponibles
-    }
+    res['id'] =  evento.id
+    res['nombre'] = evento.nombre
+    res['descripcion'] = evento.descripcion
+    res['lugar'] = evento.lugar
+    res['fecha'] = evento.fecha
+    res['total_cupos'] = evento.total_cupos
+    res['cupos_disponibles'] = evento.cupos_disponibles
 
     #Action code ends here
     return json.dumps(res)

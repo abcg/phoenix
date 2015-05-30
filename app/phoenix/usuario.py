@@ -38,7 +38,7 @@ def AGenerarCertificado():
     reserva = dbsession.query(Reserva).get((usuario,evento))
 
     if reserva.asistencia:
-       fecha_actual = datetime.now().__str__()
+       fecha_actual = str(datetime.now())
        certificado = Certificado(fecha_actual,usuario,evento)
        dbsession.add(certificado)
        dbsession.commit()
@@ -165,7 +165,7 @@ def VEventoUsuario(idEvento):
     res['asistio'] = res['inscrito'] and reserva.asistencia is 1
     res['evento_realizado'] = fecha_evento < hoy
     res['evento_cerrado'] = False       # evento_cerrado == evento_realizado && info de la asistencia fue cargada
-    res['certificado_generado'] = False # Mientras
+    res['certificado_generado'] = dbsession.query(Certificado).filter(Certificado.actor_correo==session['correo'], Certificado.evento_id==evento.id).count()
 
     #Action code ends here
     return json.dumps(res)

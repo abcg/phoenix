@@ -50,7 +50,7 @@ eventosModule.controller('VRegistroUsuarioController',
    ['$scope', '$location', '$route', 'flash', 'adminService', 'loginService', 'usuarioService',
     function ($scope, $location, $route, flash, adminService, loginService, usuarioService) {
       $scope.msg = '';
-      $scope.registroUsuarioForm = {};
+      $scope.registroUsuarioForm = {'esAdministrador' : false};
 
       loginService.VRegistroUsuario().then(function (object) {
         $scope.res = object.data;

@@ -46,7 +46,7 @@ def ARegistrarUsuario():
     if dbsession.query(Actor).get(formulario['correo']) is not None:
         res = results[1]
     else:
-        dbsession.add(Actor(correo=formulario['correo'].lower(), clave=formulario['clave'], nombre=formulario['nombre'], es_administrador=0))
+        dbsession.add(Actor(correo=formulario['correo'].lower(), clave=formulario['clave'], nombre=formulario['nombre'], es_administrador=formulario['esAdministrador']))
         dbsession.commit()
 
     #Action code ends here

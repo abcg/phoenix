@@ -32,12 +32,14 @@ app.register_blueprint(login)
 
 #Application code starts here
 
+app.config['UPLOAD_FOLDER'] = 'uploads'
+app.config['ALLOWED_EXTENSIONS'] = set(['pdf']) 
 
 #Application code ends here
 
 if __name__ == '__main__':
     app.config.update(
-    #  SECRET_KEY = repr(SystemRandom().random())
-    SECRET_KEY = 'OGOBAgfniwae'
+      #SECRET_KEY = repr(SystemRandom().random())
+       SECRET_KEY = 'OGOBAgfniwae'
     )
     manager.run()

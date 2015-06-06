@@ -144,7 +144,6 @@ eventosModule.controller('VRegistroEventoController',
       $scope.ARegistrarEvento1 = function(isValid) {
         $scope.registroEventoFormSubmitted = true;
         if (isValid) {
-          
           adminService.ARegistrarEvento($scope.registroEventoForm).then(function (object) {
               var msg = object.data["msg"];
               if (msg) flash(msg);
@@ -219,7 +218,7 @@ eventosModule.controller('VModificarEventoController',
    ['$scope', '$location', '$route', '$routeParams', 'flash', 'adminService', 'loginService',
     function ($scope, $location, $route, $routeParams, flash, adminService, loginService) {
       $scope.msg = '';
-      $scope.modificacionEventoForm = {};
+      $scope.modificacionEventoForm = { 'id' : $routeParams.idEvento };
 
       adminService.VModificarEvento($routeParams.idEvento).then(function (object) {
         $scope.res = object.data;
@@ -255,7 +254,6 @@ eventosModule.controller('VModificarEventoController',
       $scope.AModificarEvento0 = function(isValid, idEvento) {
         $scope.modificacionEventoFormSubmitted = true;
         if (isValid) {
-          
           adminService.AModificarEvento($scope.modificacionEventoForm, idEvento).then(function (object) {
               var msg = object.data["msg"];
               if (msg) flash(msg);

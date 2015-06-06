@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
-from flask import request, session, Blueprint, json
-from datetime import *
+import os
+from flask import request, session, Blueprint, json, current_app
+from werkzeug import secure_filename
+#from datetime import *
 from models import *
 from dateManager import *
 
+
 admin = Blueprint('admin', __name__)
+
 
 @admin.route('/admin/ADesconectarse')
 def ADesconectarse():
@@ -13,6 +17,7 @@ def ADesconectarse():
     results = [{'label':'/VPortada', 'msg':[ur'Usuario desconectado'], "actor":None}, ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
+
     session.pop('usuario')
     session.pop('correo')
 
@@ -30,7 +35,10 @@ def ADesconectarse():
 def AEliminarEvento():
     #GET parameter
     evento = request.args['evento']
-    results = [{'label':'/VInicioAdministrador', 'msg':[ur'Evento eliminado']}, {'label':'/VEvento', 'msg':[ur'Evento no eliminado']}, ]
+    results = [{'label':'/VInicioAdministrador', 'msg':[ur'Evento eliminado']},
+               {'label':'/VEvento', 'msg':[ur'Evento no eliminado']},
+               {'label':'/VEvento', 'msg':[ur'Eliminación sin efecto. No se puede eliminar un evento realizado']},
+              ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
 
@@ -39,10 +47,14 @@ def AEliminarEvento():
     fecha_evento = parseDate(e.fecha)
 
     if fecha_evento < hoy:
-        res = results[1]
+        res = results[2]
+
     else:
         # Primero, eliminar las reservas asociadas al evento
         dbsession.query(Reserva).filter(Reserva.evento_id==evento).delete(synchronize_session=False)
+
+        os.remove(e.afiche)
+
         # Finalmente, eliminar el evento
         dbsession.query(Evento).filter(Evento.id==evento).delete(synchronize_session=False)
         dbsession.commit()   
@@ -85,35 +97,50 @@ def AGuardarAsistencia():
 
 
 
-@admin.route('/admin/AModificarEvento/<idEvento>', methods=['POST'])
-def AModificarEvento(idEvento):
+@admin.route('/admin/AModificarEvento', methods=['POST'])
+def AModificarEvento():
     #GET parameter
-    formulario = request.get_json()
-    results = [{'label':'/VEvento/'+idEvento, 'msg':[ur'Evento modificado']}, {'label':'/VModificarEvento/'+idEvento, 'msg':[ur'Evento no modificado']}, ]
+    #formulario = request.get_json()
+    evento_id = request.form['id']
+    results = [{'label':'/VEvento/'+evento_id, 'msg':[ur'Evento modificado']},
+               {'label':'/VModificarEvento/'+evento_id, 'msg':[ur'Evento no modificado']},
+    ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
-    
-    evento = dbsession.query(Evento).get(idEvento)
+
+    evento = dbsession.query(Evento).get(evento_id)
 
     nro_personas_inscritas = evento.total_cupos - evento.cupos_disponibles
-    fecha_evento = parseDate(formulario['fecha'])
+
+    fecha_evento = parseDate(request.form['fecha'])
     hoy = today()
 
-    if nro_personas_inscritas > formulario['maxparticipantes']:
-        # Faltan pruebas
+    if nro_personas_inscritas > request.form['maxparticipantes']:
         res = results[1]
         res['msg'].append('Actualmente hay %s persona(s) inscrita(s). El nuevo número de cupos no pueder ser inferior a %s.' % \
             (nro_personas_inscritas, nro_personas_inscritas))
+
     elif fecha_evento < hoy:
         res = results[1]
         res['msg'].append('Fecha invalida')
+
     else:
-        evento.nombre = formulario['nombreEvento']
-        evento.descripcion = formulario['descripcion']
-        evento.fecha = formulario['fecha']
-        evento.lugar = formulario['lugar']
-        evento.total_cupos = formulario['maxparticipantes']
+        evento.nombre = request.form['nombreEvento']
+        evento.fecha = request.form['fecha']
+        evento.lugar = request.form['lugar']
+        evento.total_cupos = int(request.form['maxparticipantes'])
+        evento.descripcion = request.form['descripcion']
         evento.cupos_disponibles = evento.total_cupos - nro_personas_inscritas
+        file = request.files.get('archivo', None)
+
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+
+            os.remove(evento.afiche)
+            file.save(path)
+            evento.afiche = path
+            
         dbsession.add(evento)
         dbsession.commit()
 
@@ -130,18 +157,20 @@ def AModificarEvento(idEvento):
 @admin.route('/admin/ARegistrarEvento', methods=['POST'])
 def ARegistrarEvento():
     #GET parameter
-    formulario = request.get_json()
+    #formulario = request.get_json()
     results = [{'label':'/VEvento', 'msg':[ur'Evento registrado']},
                {'label':'/VRegistroEvento', 'msg':[ur'Evento no registrado']},
                {'label':'/VRegistroEvento', 'msg':[ur'Fecha de evento no válida']},
+               {'label':'/VRegistroEvento', 'msg':[ur'Formato de afiche no permitido. El Formato debe ser PDF.']},
               ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
-    n = formulario['nombreEvento']
-    d = formulario['descripcion']
-    f = formulario['fecha']
-    l = formulario['lugar']
-    c = formulario['maxparticipantes']
+    n = request.form['nombreEvento']
+    d = request.form['descripcion']
+    f = request.form['fecha']
+    l = request.form['lugar']
+    c = int(request.form['maxparticipantes'])
+    file = request.files['archivo']
     
     # Verificar la fecha
     fecha_evento = parseDate(f)
@@ -150,10 +179,16 @@ def ARegistrarEvento():
         res = results[2]
 
     else:
-        evento = Evento(afiche= '', nombre=n, descripcion=d, fecha=f, lugar=l, total_cupos=c, cupos_disponibles=c, administrador=session['correo'], cerrado=0)
-        dbsession.add(evento)
-        dbsession.commit()
-        res['label'] += '/' + str(evento.id)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+            file.save(path)
+            evento = Evento(afiche=path, nombre=n, descripcion=d, fecha=f, lugar=l, total_cupos=c, cupos_disponibles=c, administrador=session['correo'], cerrado=0)
+            dbsession.add(evento)
+            dbsession.commit()
+            res['label'] += '/' + str(evento.id)
+        else:
+            res = results[3]
 	
     #Action code ends here
     if "actor" in res:
@@ -299,5 +334,8 @@ def VRegistroEvento():
 
 #Use case code starts here
 
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1] in current_app.config['ALLOWED_EXTENSIONS']
 
 #Use case code ends here

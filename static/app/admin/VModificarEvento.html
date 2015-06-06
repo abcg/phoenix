@@ -53,7 +53,7 @@
                                                                                       modificacionEventoFormSubmitted}">
                 <label for="modificacionEventoForm_descripcion">Descripción</label>
                 <textarea id="modificacionEventoForm_descripcion" name="descripcion" class="form-control" ng-model="modificacionEventoForm.descripcion"
-                          placeholder="descripcion" required></textarea>
+                          placeholder="Descripción del evento" required></textarea>
                 <p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.descripcion.$invalid" class="help-block">
                     Error en campo 'Descripción'.
                 </p>
@@ -69,13 +69,17 @@
                            name="fecha"
                            class="form-control"
                            ng-model="modificacionEventoForm.fecha"
-                           placeholder="fecha" required/>
+                           placeholder="Fecha del evento" required/>
                                <p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.fecha.$invalid" class="help-block">Error en campo 'Fecha'</p>
             </div>
             <div class="form-group"
-                    <label for="modificacionEventoForm_afiche">Afiche</label>
-                    <input id="modificacionEventoForm_afiche" type="file" name="afiche"
-                           ng-model="modificacionEventoForm.afiche" placeholder="Afiche" />
+                 ng-class="{ 'has-error' :  modificacionEventoFormSubmitted &&
+                                            modificacionEventoFormForm.archivo.$invalid &&
+                                            modificacionEventoFormForm.archivo.$pristine &&
+                                            modificacionEventoFormSubmitted}">
+                <label for="modificacionEventoForm_archivo">Afiche</label>
+                <input type="file" id="modificacionEventoForm_archivo" name="archivo" class="form-control" file="modificacionEventoForm.archivo" placeholder="" />
+                <p ng-show="modificacionEventoFormSubmitted && modificacionEventoForm.archivo.$invalid" class="help-block">Error en campo 'Afiche'.</p>
             </div>
             <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted &&
                                                                                 modificacionEventoFormForm.lugar.$invalid &&
@@ -83,7 +87,7 @@
                                                                                 modificacionEventoFormSubmitted}">
                     <label for="modificacionEventoForm_lugar">Lugar</label>
                     <input id="modificacionEventoForm_lugar" type="text" name="lugar" class="form-control"
-                          ng-model="modificacionEventoForm.lugar" placeholder="lugar" required/>
+                          ng-model="modificacionEventoForm.lugar" placeholder="Lugar del evento" required/>
                     <p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.lugar.$invalid" class="help-block">Error en campo 'Lugar'.</p>
             </div>
             <div class="form-group" ng-class="{ 'has-error' :  modificacionEventoFormSubmitted &&
@@ -92,7 +96,7 @@
                                                                                       modificacionEventoFormSubmitted}">
                 <label for="modificacionEventoForm_maxparticipantes">Número de cupos</label>
                 <input id="modificacionEventoForm_maxparticipantes" type="number" name="maxparticipantes" class="form-control"
-                       ng-model="modificacionEventoForm.maxparticipantes" placeholder="maxparticipantes" required min="1"/>
+                       ng-model="modificacionEventoForm.maxparticipantes" placeholder="Máximo número de participantes" required min="1"/>
                     <p ng-show="modificacionEventoFormSubmitted && modificacionEventoFormForm.maxparticipantes.$invalid" class="help-block">
                         Error en campo 'Número de cupos'.
                     </p>

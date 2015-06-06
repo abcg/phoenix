@@ -14,11 +14,22 @@ eventosModule.service('adminService', ['$q', '$http', function($q, $http) {
     };
 
     this.ARegistrarEvento = function(registroEventoForm) {
-        return  $http({
-          url: "admin/ARegistrarEvento",
-          data: registroEventoForm,
-          method: 'POST',
-        });
+        return $http({
+            url: "admin/ARegistrarEvento",
+            data: registroEventoForm,
+            method: 'POST',
+            headers: { 'Content-Type': 'multipart/form-data' },
+            transformRequest: function (data, headersGetter) {
+                var formData = new FormData();
+                angular.forEach(data, function (value, key) {
+                    formData.append(key, value);
+                });
+
+                var headers = headersGetter();
+                delete headers['Content-Type'];
+
+                return formData;
+            }  });
     //    var labels = ["/VEvento", "/VRegistroEvento", ];
     //    var res = labels[0];
     //    var deferred = $q.defer();
@@ -27,11 +38,22 @@ eventosModule.service('adminService', ['$q', '$http', function($q, $http) {
     };
 
     this.AModificarEvento = function(modificacionEventoForm, idEvento) {
-        return  $http({
-          url: "admin/AModificarEvento/"+idEvento,
-          data: modificacionEventoForm,
-          method: 'POST',
-        });
+          return $http({
+            url: "admin/AModificarEvento",
+            data: modificacionEventoForm,
+            method: 'POST',
+            headers: { 'Content-Type': 'multipart/form-data' },
+            transformRequest: function (data, headersGetter) {
+                var formData = new FormData();
+                angular.forEach(data, function (value, key) {
+                    formData.append(key, value);
+                });
+
+                var headers = headersGetter();
+                delete headers['Content-Type'];
+
+                return formData;
+            }  });
     //    var labels = ["/VEvento", "/VModificarEvento", ];
     //    var res = labels[0];
     //    var deferred = $q.defer();

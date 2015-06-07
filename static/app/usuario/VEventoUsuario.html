@@ -16,8 +16,8 @@
   Regresar</a></li>
 <li ng-hide="evento_realizado"><a ng-click="confirmarRegistro(id)">
   Inscribirse en Evento</a></li>
-<li><a ng-click="VAficheUsuario1()"
-       ng-show="actor=='actor_usuario' || false">
+<li><a ng-click="VAficheUsuario1(id)"
+       ng-show="(actor=='actor_usuario' || false) && afiche">
   Ver afiche</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -29,8 +29,10 @@
     </div>
 </nav>
 
+
+<iframe ng-show="afiche" src="{{afiche}}" height="400x" style="float:right"></iframe>
 	<h1 align="center">{{nombreEvento}}</h1>
-	<p align="center">{{nombreAdmin}}</p></br>
+	<p align="center">Administrador: {{nombreAdmin}}</p></br>
 	
 	<div style="margin-left: 400px; margin-right: 400px;">
 		<p><b>Fecha:</b> {{fecha}}</p>
@@ -40,7 +42,6 @@
 		</br><p><b>Máx. Participantes:</b> {{nroCupos}}</p>
 		<p><b>Cupos disponibles:</b> {{cuposDisponibles}}</p>
 	</div>
-	
 	</br>
 	<div align="center" ng-show="inscrito">
         <a ng-click="VCredenciales9(id)">Ver Credenciales</a>

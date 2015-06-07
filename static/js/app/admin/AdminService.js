@@ -128,7 +128,7 @@ eventosModule.service('adminService', ['$q', '$http', function($q, $http) {
     this.VAfiche = function(args) {
         if(typeof args == 'undefined') args={};
         return $http({
-          url: 'admin/VAfiche',
+          url: 'admin/VAfiche/'+args,
           method: 'GET',
           params: args
         });

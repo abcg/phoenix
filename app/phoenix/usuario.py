@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import request, session, Blueprint, json
+from flask import request, session, Blueprint, json, current_app
 from datetime import *
 from models import *
 from dateManager import *
@@ -110,13 +110,16 @@ def AInscribirEvento():
 
 
 
-@usuario.route('/usuario/VAficheUsuario')
-def VAficheUsuario():
+@usuario.route('/usuario/VAficheUsuario/<idEvento>')
+def VAficheUsuario(idEvento):
     res = {}
     if "actor" in session:
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
 
+    evento = dbsession.query(Evento).get(idEvento)
+    res['afiche'] = evento.afiche
+    res['id'] = evento.id
 
     #Action code ends here
     return json.dumps(res)
@@ -160,6 +163,7 @@ def VEventoUsuario(idEvento):
     res['nroCupos'] = evento.total_cupos
     res['cuposDisponibles'] = evento.cupos_disponibles
     res['nombreAdmin'] = admin.nombre
+    res['afiche'] = evento.afiche
 
     res['inscrito'] = reserva is not None
     res['asistio'] = res['inscrito'] and reserva.asistencia is 1
@@ -182,12 +186,14 @@ def VInicioUsuario():
     res['eventos_no_reservados'] = []
     res['eventos_reservados'] = []    
 	
+    hoy = today()
     for evento in eventos :
         reserva = dbsession.query(Reserva).get((session['correo'], evento.id))
         if reserva is not None:
             res['eventos_reservados'].append({ 'id' : evento.id, 'nombre' : evento.nombre, 'fecha' : evento.fecha, 'lugar' : evento.lugar })
         else:
-            res['eventos_no_reservados'].append({'id':evento.id, 'nombre':evento.nombre, 'fecha':evento.fecha, 'cupos_disponibles':evento.cupos_disponibles})
+            if parseDate(evento.fecha) >= hoy:
+                res['eventos_no_reservados'].append({'id':evento.id, 'nombre':evento.nombre, 'fecha':evento.fecha, 'cupos_disponibles':evento.cupos_disponibles})
         
     #Action code ends here
     return json.dumps(res)

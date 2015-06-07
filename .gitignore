@@ -3,4 +3,4 @@ venv/
 phoenix.db
 *~
 *.swp
-
+uploads/*

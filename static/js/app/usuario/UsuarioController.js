@@ -5,7 +5,7 @@ eventosModule.config(function ($routeProvider) {
             }).when('/VEventoUsuario/:idEvento', {
                 controller: 'VEventoUsuarioController',
                 templateUrl: 'app/usuario/VEventoUsuario.html'
-            }).when('/VAficheUsuario', {
+            }).when('/VAficheUsuario/:idEvento', {
                 controller: 'VAficheUsuarioController',
                 templateUrl: 'app/usuario/VAficheUsuario.html'
             }).when('/VCertificadoUsuario/:idEvento', {
@@ -75,8 +75,8 @@ eventosModule.controller('VEventoUsuarioController',
               $location.path(label);
           }
         });};
-      $scope.VAficheUsuario1 = function() {
-        $location.path('/VAficheUsuario');
+      $scope.VAficheUsuario1 = function(idEvento) {
+        $location.path('/VAficheUsuario/'+idEvento);
       };
       $scope.VCredenciales9 = function(args) {
         $location.path('/VCredenciales/'+args);
@@ -160,10 +160,10 @@ eventosModule.controller('VCredencialesController',
     
     
 eventosModule.controller('VAficheUsuarioController', 
-   ['$scope', '$location', '$route', 'flash', 'loginService', 'usuarioService',
-    function ($scope, $location, $route, flash, loginService, usuarioService) {
+   ['$scope', '$location', '$route', '$routeParams', 'flash', 'loginService', 'usuarioService',
+    function ($scope, $location, $route, $routeParams, flash, loginService, usuarioService) {
       $scope.msg = '';
-      usuarioService.VAficheUsuario().then(function (object) {
+      usuarioService.VAficheUsuario($routeParams.idEvento).then(function (object) {
         $scope.res = object.data;
         for (var key in object.data) {
             $scope[key] = object.data[key];
@@ -172,8 +172,8 @@ eventosModule.controller('VAficheUsuarioController',
             $location.path('/');
         }
       });
-      $scope.VAficheUsuario0 = function() {
-        $location.path('/VAficheUsuario');
+      $scope.VEventoUsuario0 = function() {
+        $location.path('/VEventoUsuario/'+$routeParams.idEvento);
       };
 
     }]);

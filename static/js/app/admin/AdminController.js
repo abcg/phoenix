@@ -8,7 +8,7 @@ eventosModule.config(function ($routeProvider) {
             }).when('/VRegistroEvento', {
                 controller: 'VRegistroEventoController',
                 templateUrl: 'app/admin/VRegistroEvento.html'
-            }).when('/VAfiche', {
+            }).when('/VAfiche/:idEvento', {
                 controller: 'VAficheController',
                 templateUrl: 'app/admin/VAfiche.html'
             }).when('/VParticipantes/:idEvento', {
@@ -66,8 +66,8 @@ eventosModule.controller('VEventoController',
             $location.path('/');
         }
       });
-      $scope.VAfiche0 = function() {
-        $location.path('/VAfiche');
+      $scope.VAfiche0 = function(idEvento) {
+        $location.path('/VAfiche/'+idEvento);
       };
       $scope.VModificarEvento1 = function(args) {
         $location.path('/VModificarEvento/'+args);
@@ -159,10 +159,13 @@ eventosModule.controller('VRegistroEventoController',
 
     }]);
 eventosModule.controller('VAficheController', 
-   ['$scope', '$location', '$route', 'flash', 'adminService', 'loginService',
-    function ($scope, $location, $route, flash, adminService, loginService) {
+   ['$scope', '$location', '$route', '$routeParams', 'flash', 'adminService', 'loginService',
+    function ($scope, $location, $route, $routeParams, flash, adminService, loginService) {
       $scope.msg = '';
-      adminService.VAfiche().then(function (object) {
+      $scope.VEvento8 = function() {
+        $location.path('/VEvento/'+$routeParams.idEvento);
+        };
+      adminService.VAfiche($routeParams.idEvento).then(function (object) {
         $scope.res = object.data;
         for (var key in object.data) {
             $scope[key] = object.data[key];

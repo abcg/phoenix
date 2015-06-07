@@ -12,18 +12,19 @@
         </div>
         <div class="collapse navbar-collapse" id="contenido-plegable">
             <ul class="nav navbar-nav navbar-left">
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
 <li class="navbar-text" ng-show="usuario.nombre" ng-bind="usuario.nombre"></li>
-<li><a ng-click="VAficheUsuario0()"
+<li><a ng-click="VEventoUsuario0(id)"
        ng-show="actor=='actor_usuario' || false">
     Regresar</a></li>
 
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
             </ul>
         </div>
     </div>
 </nav>
 
-
+<iframe id="aficheEvento" src="{{afiche}}" width="100%" height="100%"></iframe>
 
 <div id="right"></div>
+

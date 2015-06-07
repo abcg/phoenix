@@ -94,7 +94,7 @@ eventosModule.service('usuarioService', ['$q', '$http', function($q, $http) {
     this.VAficheUsuario = function(args) {
         if(typeof args == 'undefined') args={};
         return $http({
-          url: 'usuario/VAficheUsuario',
+          url: 'usuario/VAficheUsuario/'+args,
           method: 'GET',
           params: args
         });

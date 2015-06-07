@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
-from flask import request, session, Blueprint, json, current_app
+from flask import request, session, Blueprint, json, current_app, send_from_directory
 from werkzeug import secure_filename
-#from datetime import *
 from models import *
 from dateManager import *
 
@@ -53,7 +52,8 @@ def AEliminarEvento():
         # Primero, eliminar las reservas asociadas al evento
         dbsession.query(Reserva).filter(Reserva.evento_id==evento).delete(synchronize_session=False)
 
-        os.remove(e.afiche)
+        if e.afiche:
+            os.remove(e.afiche)
 
         # Finalmente, eliminar el evento
         dbsession.query(Evento).filter(Evento.id==evento).delete(synchronize_session=False)
@@ -133,16 +133,22 @@ def AModificarEvento():
         evento.cupos_disponibles = evento.total_cupos - nro_personas_inscritas
         file = request.files.get('archivo', None)
 
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+        if file:
+            if allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
 
-            os.remove(evento.afiche)
-            file.save(path)
-            evento.afiche = path
+                os.remove(evento.afiche)
+                file.save(path)
+                evento.afiche = path
+                dbsession.add(evento)
+                dbsession.commit()
+            else:
+                res = results[1]
             
-        dbsession.add(evento)
-        dbsession.commit()
+        else:
+            dbsession.add(evento)
+            dbsession.commit()
 
     #Action code ends here
     if "actor" in res:
@@ -170,7 +176,7 @@ def ARegistrarEvento():
     f = request.form['fecha']
     l = request.form['lugar']
     c = int(request.form['maxparticipantes'])
-    file = request.files['archivo']
+    file = request.files.get('archivo', None)
     
     # Verificar la fecha
     fecha_evento = parseDate(f)
@@ -179,16 +185,26 @@ def ARegistrarEvento():
         res = results[2]
 
     else:
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-            file.save(path)
-            evento = Evento(afiche=path, nombre=n, descripcion=d, fecha=f, lugar=l, total_cupos=c, cupos_disponibles=c, administrador=session['correo'], cerrado=0)
+        evento = Evento(afiche='', nombre=n, descripcion=d, fecha=f, lugar=l, total_cupos=c, cupos_disponibles=c, administrador=session['correo'], cerrado=0)
+
+        if file:
+            if allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+
+                path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+                file.save(path)
+
+                evento.afiche = path
+                dbsession.add(evento)
+                dbsession.commit()
+
+                res['label'] += '/' + str(evento.id)
+            else:
+                res = results[3]
+        else:
             dbsession.add(evento)
             dbsession.commit()
             res['label'] += '/' + str(evento.id)
-        else:
-            res = results[3]
 	
     #Action code ends here
     if "actor" in res:
@@ -200,13 +216,16 @@ def ARegistrarEvento():
 
 
 
-@admin.route('/admin/VAfiche')
-def VAfiche():
+@admin.route('/admin/VAfiche/<idEvento>')
+def VAfiche(idEvento):
     res = {}
     if "actor" in session:
         res['actor']=session['actor']
     #Action code goes here, res should be a JSON structure
+    evento = dbsession.query(Evento).get(idEvento)
 
+    res['afiche'] = evento.afiche
+    res['id'] = evento.id
 
     #Action code ends here
     return json.dumps(res)
@@ -237,6 +256,7 @@ def VEvento(idEvento):
     res['cuposDisponibles'] = e.cupos_disponibles
     res['nombreAdmin'] = a.nombre
     res['abierto'] = fecha_evento >= hoy
+    res['afiche'] = e.afiche
 
     #Action code ends here
     return json.dumps(res)
@@ -337,5 +357,9 @@ def VRegistroEvento():
 def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1] in current_app.config['ALLOWED_EXTENSIONS']
+
+@admin.route('/uploads/<afiche>')
+def getAfiche(afiche):
+    return send_from_directory(current_app.config['UPLOAD_FOLDER'], str(afiche))
 
 #Use case code ends here

@@ -38,7 +38,7 @@
 
          <label for="registroEventoForm_archivo"></label>
          <input type="file" id="registroEventoForm_archivo" name="archivo" class="form-control" file="registroEventoForm.archivo" placeholder="" required/>
-         <p ng-show="registroEventoForm && registroEventoForm.archivo.$invalid" class="help-block">Error en campo .</p>
+         <p ng-show="registroEventoFormSubmitted && registroEventoFormForm.archivo.$invalid" class="help-block">Error en campo 'Afiche'.</p>
     </div>
 
             <div class="form-group" ng-class="{ 'has-error' :  registroEventoFormSubmitted && registroEventoFormForm.lugar.$invalid && registroEventoFormForm.lugar.$pristine && registroEventoFormSubmitted}"><label for="registroEventoForm_lugar">Lugar</label><input id="registroEventoForm_lugar" type="text" name="lugar" class="form-control" ng-model="registroEventoForm.lugar" placeholder="Lugar del evento" required/><p ng-show="registroEventoFormSubmitted && registroEventoFormForm.lugar.$invalid" class="help-block">Error en campo 'Lugar'.</p></div>

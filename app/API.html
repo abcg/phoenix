@@ -29,9 +29,11 @@ Requerido.
 Requerido. 
      </li>     <li>maxparticipantes - El numero maximo de participantes que puede asistir al evento a registrar. 
 Requerido. 
-Valor mínimo: <code></code>. 
+Valor mínimo: 1<code></code>. 
      </li>     <li>descripcion - Descripcion del evento que se desea registrar. 
 Requerido. 
+     </li>     <li>archivo - Afiche del evento que se desea registrar. 
+Opcional. 
      </li>
     </ul>
    </li>
@@ -235,7 +237,7 @@ Parámetros GET: participantes
    <li>Método: GET</li><li>Formato de salida: JSON</li>
    <li>Roles: actor_administrador </li>
   </ul>
- </li>
+ </li> 
 </ol>
 <h2>Usuario</h2>
 <p></p>
@@ -372,6 +374,13 @@ Parámetros GET: evento
    <li>URL: '/usuario/VCertificadoUsuario'</li>
    <li>Método: GET</li><li>Formato de salida: JSON</li>
    <li>Roles: Sin restricción de rol
+  </ul>
+ </li> <li>
+  <p></p>
+  <ul>
+   <li>URL: '/usuario/VCredenciales'</li>
+   <li>Método: GET</li><li>Formato de salida: JSON</li>
+   <li>Roles: actor_usuario </li>
   </ul>
  </li>
 </ol>

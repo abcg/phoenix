@@ -15,7 +15,7 @@
   <li><a ng-click="VInicioAdministrador1()">
   Regresar</a></li>
   <li ng-show="(actor=='actor_administrador' || false) && afiche"><a ng-click="VAfiche0(id)">
-  VerAfiche</a></li>
+  Ver Afiche</a></li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -28,11 +28,12 @@
     </div>
 </nav>
 
-    <iframe src="{{afiche}}" height=400px ng-show="afiche" style="float:right"></iframe>
+    </br>
+    <iframe src="{{afiche}}" height=400px ng-show="afiche" style="float:left; margin-left:100px"></iframe>
 	<h1 align="center">{{nombreEvento}}</h1>
-	<p align="center">{{nombreAdmin}}</p></br>
+	<p align="center">Tú eres el administrador de este evento</p></br>
 	
-	<div style="margin-left: 400px; margin-right: 400px;">
+	<div style="margin-left: 500px; margin-right: 200px;">
 		<p><b>Fecha:</b> {{fecha}}</p>
 		<p><b>Lugar:</b> {{lugar}}</p>
 		<p><b>Descripción:</b> {{descripcion}}</p>

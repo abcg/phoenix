@@ -138,7 +138,9 @@ def AModificarEvento():
                 filename = secure_filename(file.filename)
                 path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
 
-                os.remove(evento.afiche)
+                if evento.afiche :
+                  os.remove(evento.afiche)
+              
                 file.save(path)
                 evento.afiche = path
                 dbsession.add(evento)

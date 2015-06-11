@@ -9,7 +9,10 @@ login = Blueprint('login', __name__)
 def AIdentificar():
     #GET parameter
     formulario = request.get_json()
-    results = [{'label':'/VInicioAdministrador', 'msg':[ur'Administrador identificado'], "actor":"actor_administrador"}, {'label':'/VInicioUsuario', 'msg':[ur'Usuario identificado'], "actor":"actor_usuario"}, {'label':'/VPortada', 'msg':[ur'Combinación de correo y clave no es válida']}, ]
+    results = [{'label':'/VInicioAdministrador', 'msg':[], "actor":"actor_administrador"},
+               {'label':'/VInicioUsuario', 'msg':[], "actor":"actor_usuario"},
+               {'label':'/VPortada', 'msg':[ur'Error: combinación incorrecta de correo y clave.']},
+    ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
 
@@ -20,6 +23,7 @@ def AIdentificar():
     if actor is not None and actor.clave == clave:
         if not actor.es_administrador:
             res = results[1]
+        res['msg'].append('¡Hola, %s!' % (str(actor.nombre)))
         session['usuario'] = actor.nombre
         session['correo']  = actor.correo
     else:
@@ -39,12 +43,15 @@ def AIdentificar():
 def ARegistrarUsuario():
     #GET parameter
     formulario = request.get_json()
-    results = [{'label':'/VPortada', 'msg':[ur'Usuario registrado'], "actor":"actor_usuario"}, {'label':'/VRegistroUsuario', 'msg':[ur'Usuario no registrado']}, ]
+    results = [{'label':'/VPortada', 'msg':[ur'Usuario %s (%s) registrado.' % (formulario['nombre'], formulario['correo'])], "actor":"actor_usuario"},
+               {'label':'/VRegistroUsuario', 'msg':[ur'Usuario no registrado']},
+    ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
 
     if dbsession.query(Actor).get(formulario['correo']) is not None:
         res = results[1]
+        res['msg'].append('Ya existe un usuario registrado con el correo \'%s\'' % (formulario['correo']))
     else:
         dbsession.add(Actor(correo=formulario['correo'].lower(), clave=formulario['clave'], nombre=formulario['nombre'], es_administrador=formulario['esAdministrador']))
         dbsession.commit()

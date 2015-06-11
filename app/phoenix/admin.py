@@ -13,7 +13,7 @@ admin = Blueprint('admin', __name__)
 def ADesconectarse():
     #POST/PUT parameters
     params = request.get_json()
-    results = [{'label':'/VPortada', 'msg':[ur'Usuario desconectado'], "actor":None}, ]
+    results = [{'label':'/VPortada', 'msg':[ur'¡Hasta pronto, %s!' % (session['usuario'])], "actor":None}, ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
 
@@ -34,9 +34,9 @@ def ADesconectarse():
 def AEliminarEvento():
     #GET parameter
     evento = request.args['evento']
-    results = [{'label':'/VInicioAdministrador', 'msg':[ur'Evento eliminado']},
-               {'label':'/VEvento', 'msg':[ur'Evento no eliminado']},
-               {'label':'/VEvento', 'msg':[ur'Eliminación sin efecto. No se puede eliminar un evento realizado']},
+    results = [{'label':'/VInicioAdministrador', 'msg':[ur'Evento eliminado.']},
+               {'label':'/VEvento', 'msg':[ur'Evento no eliminado.']},
+               {'label':'/VEvento', 'msg':[ur'Eliminación sin efecto. No se puede eliminar un evento realizado.']},
               ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
@@ -73,7 +73,8 @@ def AEliminarEvento():
 def AGuardarAsistencia():
     #GET parameter
     asistencia_info = request.get_json()
-    results = [{'label':'/VParticipantes', 'msg':[ur'Registro exitoso']}, {'label':'/VParticipantes', 'msg':[ur'Registro no exitoso']}, ]
+    results = [{'label':'/VParticipantes', 'msg':[ur'Registro de asistencia exitoso.']},
+               {'label':'/VParticipantes', 'msg':[ur'Hubo un error al registrar la asistencia.']}, ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
     evento = dbsession.query(Evento).get(asistencia_info['evento'])
@@ -102,8 +103,8 @@ def AModificarEvento():
     #GET parameter
     #formulario = request.get_json()
     evento_id = request.form['id']
-    results = [{'label':'/VEvento/'+evento_id, 'msg':[ur'Evento modificado']},
-               {'label':'/VModificarEvento/'+evento_id, 'msg':[ur'Evento no modificado']},
+    results = [{'label':'/VEvento/'+evento_id, 'msg':[ur'¡Modificación exitosa!']},
+               {'label':'/VModificarEvento/'+evento_id, 'msg':[ur'La modificación no tuvo éxito.']},
     ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
@@ -166,10 +167,10 @@ def AModificarEvento():
 def ARegistrarEvento():
     #GET parameter
     #formulario = request.get_json()
-    results = [{'label':'/VEvento', 'msg':[ur'Evento registrado']},
-               {'label':'/VRegistroEvento', 'msg':[ur'Evento no registrado']},
-               {'label':'/VRegistroEvento', 'msg':[ur'Fecha de evento no válida']},
-               {'label':'/VRegistroEvento', 'msg':[ur'Formato de afiche no permitido. El Formato debe ser PDF.']},
+    results = [{'label':'/VEvento', 'msg':[ur'Evento "%s" registrado.' % (request.form['nombreEvento'])]},
+               {'label':'/VRegistroEvento', 'msg':[ur'Evento no registrado.']},
+               {'label':'/VRegistroEvento', 'msg':[ur'Fecha de evento no válida.']},
+               {'label':'/VRegistroEvento', 'msg':[ur'El afiche debe ser un archivo PDF.']},
               ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message

@@ -11,9 +11,10 @@ usuario = Blueprint('usuario', __name__)
 def ADesconectarseUsuario():
     #POST/PUT parameters
     params = request.get_json()
-    results = [{'label':'/VPortada', 'msg':[ur'Usuario desconectado'], "actor":None}, ]
+    results = [{'label':'/VPortada', 'msg':[ur'¡Hasta pronto, %s!' % (session['usuario'])], "actor":None}, ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
+
     session.pop('usuario')
     session.pop('correo')
 
@@ -31,7 +32,9 @@ def ADesconectarseUsuario():
 def AGenerarCertificado():
     #GET parameter
     evento = request.args['evento']
-    results = [{'label':'/VEventoUsuario', 'msg':[ur'Generar certificado']}, {'label':'/VEventoUsuario', 'msg':[ur'Usted no asistio a este evento']} ]
+    results = [{'label':'/VEventoUsuario', 'msg':[ur'Su certificado ha sido generado.']},
+               {'label':'/VEventoUsuario', 'msg':[ur'Usted no asistió a este evento.']}
+    ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
     usuario = session['correo']
@@ -59,7 +62,7 @@ def AGenerarCertificado():
 def AGenerarCredencial():
     #GET parameter
     evento = request.args['evento']
-    results = [{'label':'/VEventoUsuario', 'msg':[ur'Generar credencial']}, ]
+    results = [{'label':'/VEventoUsuario', 'msg':[ur'Su credencial ha sido generada.']}, ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
 

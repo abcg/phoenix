@@ -105,6 +105,7 @@ def AModificarEvento():
     evento_id = request.form['id']
     results = [{'label':'/VEvento/'+evento_id, 'msg':[ur'¡Modificación exitosa!']},
                {'label':'/VModificarEvento/'+evento_id, 'msg':[ur'La modificación no tuvo éxito.']},
+               {'label':'/VModificarEvento/'+evento_id, 'msg':[ur'El afiche debe ser un archivo PDF.']},
     ]
     res = results[0]
     #Action code goes here, res should be a list with a label and a message
@@ -136,7 +137,7 @@ def AModificarEvento():
 
         if file:
             if allowed_file(file.filename):
-                filename = secure_filename(file.filename)
+                filename = afiche_filename(evento.id, secure_filename(file.filename))
                 path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
 
                 if evento.afiche :
@@ -147,7 +148,7 @@ def AModificarEvento():
                 dbsession.add(evento)
                 dbsession.commit()
             else:
-                res = results[1]
+                res = results[2]
             
         else:
             dbsession.add(evento)
@@ -192,15 +193,17 @@ def ARegistrarEvento():
 
         if file:
             if allowed_file(file.filename):
-                filename = secure_filename(file.filename)
+                dbsession.add(evento)
+                dbsession.flush()
+                filename = afiche_filename(evento.id, secure_filename(file.filename))
 
                 path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
                 file.save(path)
 
                 evento.afiche = path
+
                 dbsession.add(evento)
                 dbsession.commit()
-
                 res['label'] += '/' + str(evento.id)
             else:
                 res = results[3]
@@ -360,6 +363,9 @@ def VRegistroEvento():
 def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1] in current_app.config['ALLOWED_EXTENSIONS']
+
+def afiche_filename(i, s):
+    return str(i) + "_" + s
 
 @admin.route('/uploads/<afiche>')
 def getAfiche(afiche):

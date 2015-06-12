@@ -39,7 +39,6 @@ app.config['ALLOWED_EXTENSIONS'] = set(['pdf'])
 
 if __name__ == '__main__':
     app.config.update(
-      #SECRET_KEY = repr(SystemRandom().random())
-       SECRET_KEY = 'OGOBAgfniwae'
+      SECRET_KEY = repr(SystemRandom().random())
     )
     manager.run()
